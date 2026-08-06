@@ -1,0 +1,27 @@
+---
+import Logo from './Logo.astro';
+import { NAV, APP_STORE_URL, DEMO_URL } from '../consts';
+const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
+---
+<header class="site">
+  <div class="wrap nav">
+    <a href="/" class="logo" aria-label="Qpushly home">
+      <Logo />
+      <span>Qpushly</span>
+    </a>
+    <nav class="nav-links" id="nav-links">
+      {NAV.map(([href, label]) => <a href={href} class={path === href ? 'active' : ''}>{label}</a>)}
+    </nav>
+    {/* Install is the primary action: Qpushly is self-serve with a $0 tier, so
+        leading with "Book a demo" would gate a funnel that needs no gate. */}
+    <div class="nav-cta">
+      <a href={DEMO_URL} class="btn btn-line nav-secondary">Book a demo</a>
+      <a href={APP_STORE_URL} class="btn btn-accent">Install free</a>
+      <button class="menu-btn" aria-label="Open menu" aria-controls="nav-links" aria-expanded="false">
+        <svg class="ic-open" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg class="ic-close" viewBox="0 0 24 24"><path d="M6 6l12 12M6 18L18 6"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<div class="nav-overlay"></div>

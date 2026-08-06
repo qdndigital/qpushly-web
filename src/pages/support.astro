@@ -1,0 +1,96 @@
+---
+import Base from '../layouts/Base.astro';
+import { SUPPORT_EMAIL, GUIDE_URL } from '../consts';
+---
+
+<Base
+  title="Support — Qpushly for Shopify"
+  description="Get help with Qpushly: read the user guide, or send us a message. We reply to every email."
+>
+  <section class="phero">
+    <div class="wrap">
+      <p class="crumb"><a href="/">Home</a> / Support</p>
+      <h1>Stuck on something? Tell us what happened.</h1>
+      <p>
+        Most questions are answered in the guide — especially the theme-embed step,
+        which is where setup usually stalls. If it is not in there, write to us.
+      </p>
+    </div>
+  </section>
+
+  <section class="sec pt-4">
+    <div class="wrap contact-grid">
+      <div class="cinfo rv">
+        <div class="r">
+          <p class="k">Email</p>
+          <p class="v"><a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a></p>
+        </div>
+        <div class="r">
+          <p class="k">User guide</p>
+          <p class="v"><a href={GUIDE_URL}>guide.qpushly.com</a></p>
+        </div>
+        <div class="r">
+          <p class="k">Response time</p>
+          <p class="v">Within one business day</p>
+        </div>
+        <div class="r">
+          <p class="k">Before you write</p>
+          <p class="text-sm text-ink-2 leading-relaxed mt-2">
+            Two things make a bug report solvable in one round trip: your
+            <b>myshopify.com domain</b>, and whether the Qpushly app embed is
+            enabled in your live theme. If the problem is a notification that did
+            not arrive, tell us the browser and OS of the device you expected it on.
+          </p>
+        </div>
+      </div>
+
+      {/* Netlify Forms: the `netlify` attribute is what registers the form at
+          build time. `netlify-honeypot` adds spam filtering without a CAPTCHA
+          (which would be one more third-party origin). The `action` gives the
+          no-JS path somewhere to land. */}
+      <form
+        class="cform rv"
+        name="support"
+        method="POST"
+        action="/thank-you"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+      >
+        <input type="hidden" name="form-name" value="support" />
+        <p class="hidden"><label>Do not fill this in: <input name="bot-field" /></label></p>
+
+        <div class="fr">
+          <label for="name">Your name</label>
+          <input id="name" name="name" type="text" required autocomplete="name" />
+        </div>
+        <div class="fr">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" required autocomplete="email" />
+        </div>
+        <div class="fr">
+          <label for="shop">Store domain</label>
+          <input id="shop" name="shop" type="text" placeholder="your-store.myshopify.com" />
+        </div>
+        <div class="fr">
+          <label for="topic">What is this about?</label>
+          <select id="topic" name="topic">
+            <option>Setup — the theme app embed</option>
+            <option>Subscribers are not appearing</option>
+            <option>A notification did not arrive</option>
+            <option>Automations</option>
+            <option>Campaigns</option>
+            <option>Billing or plans</option>
+            <option>Privacy or data request</option>
+            <option>Something else</option>
+          </select>
+        </div>
+        <div class="fr">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-accent btn-lg w-full">Send message</button>
+        <p class="note">We only use your address to reply. Nothing is added to a mailing list.</p>
+      </form>
+    </div>
+  </section>
+</Base>

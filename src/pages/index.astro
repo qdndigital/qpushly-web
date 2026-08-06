@@ -1,0 +1,387 @@
+---
+import Base from '../layouts/Base.astro';
+import PushShade from '../components/PushShade.astro';
+import AppShot from '../components/AppShot.astro';
+import { APP_STORE_URL, DEMO_URL, GUIDE_URL } from '../consts';
+import { PLANS, PRICING_CONFIRMED } from '../plans';
+
+const check = '<path d="M20 6 9 17l-5-5"/>';
+
+const faqs = [
+  [
+    'Do shoppers have to give an email address?',
+    'No. That is the whole point of web push. A visitor taps “Allow” in the browser prompt and they are subscribed — no form, no email address, no phone number, nothing to type. It is the shortest opt-in you can offer, which is why push lists tend to grow faster than email lists on the same traffic.',
+  ],
+  [
+    'Which browsers and devices can receive the notifications?',
+    'Chrome, Edge, Firefox and Opera on Windows, macOS, Linux and Android. Safari on macOS is supported. On iPhone and iPad, web push only works if the shopper has added your store to their home screen — Apple requires an installed web app. Qpushly records the browser, OS and device for every subscriber so you can see the mix in your own list.',
+  ],
+  [
+    'What do I have to do to install it?',
+    'Install from the Shopify App Store, then enable the Qpushly app embed in your theme (Online Store → Themes → Customize → App embeds). That second step is not optional — the embed is what registers the service worker on your storefront. The whole thing takes a couple of minutes and needs no code.',
+  ],
+  [
+    'Will this slow my storefront down?',
+    'The embed adds three small deferred scripts. They do not block rendering, and the service worker only runs when the browser has idle time. No external tracker, no third-party geolocation lookup, no font or CSS request from another origin.',
+  ],
+  [
+    'How does Qpushly know a cart was abandoned?',
+    'The embed sends a snapshot of the cart to your app whenever it changes. If a cart goes quiet for ten minutes and the visitor is a subscriber, the abandoned-cart automation queues its first reminder. Recovering the cart marks it recovered and stops the rest of the sequence.',
+  ],
+  [
+    'Can I bring subscribers over from another push provider?',
+    'Yes — Import subscribers takes a CSV export from your previous provider. Endpoints that are still valid keep receiving notifications; the import report tells you how many rows were imported, updated and skipped, and why.',
+  ],
+  [
+    'What data does Qpushly store about my shoppers?',
+    'The push endpoint and its keys, plus browser, OS, device, language and timezone, and — where your store provides them — email, phone, city and country. It also stores cart contents and viewed products so the automations can reference them. All of it is deleted when you uninstall and Shopify sends the shop-redact webhook. See the Privacy Policy for the full list.',
+  ],
+];
+---
+
+<Base
+  title="Qpushly — Web push notifications for Shopify"
+  description="Web push for Shopify stores. Shoppers subscribe in one tap — no email, no phone number — and five automations bring them back for abandoned carts, restocks and price drops."
+>
+  <!-- ─────────────────────────── HERO ─────────────────────────── -->
+  <section class="hero">
+    <div class="wrap herogrid">
+      <div class="hero-copy">
+        <span class="eyebrow"><span class="dot"></span>Shopify web push</span>
+        <h1>The channel your shoppers join in <em>one tap</em></h1>
+        <p class="lead">
+          No email address. No phone number. A visitor allows notifications once,
+          and from then on you can reach them on their desktop or phone — with a
+          message you can trace all the way to an order.
+        </p>
+        <div class="hero-cta">
+          <a href={APP_STORE_URL} class="btn btn-accent btn-lg">Install free</a>
+          <a href="/how-it-works" class="btn btn-line btn-lg">See how it works</a>
+        </div>
+        <p class="hero-note">Free plan · Works with any Shopify theme</p>
+      </div>
+      <div class="hero-viz">
+        <PushShade />
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────────────── TRUST BAR ────────────────────────── -->
+  <section class="alt">
+    <div class="wrap py-6">
+      <div class="trustbar">
+        <span class="ti"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Built on Shopify APIs</span>
+        <span class="sep"></span>
+        <span class="ti"><svg viewBox="0 0 24 24" set:html={check} />Embedded in your admin</span>
+        <span class="sep"></span>
+        <span class="ti"><svg viewBox="0 0 24 24"><path d="M12 2v20M2 12h20"/></svg>No theme code</span>
+        <span class="sep"></span>
+        <span class="ti"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>GDPR webhooks handled</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ────────────────────── PROBLEM / SOLUTION ────────────────── -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="shead ctr rv">
+        <span class="eyebrow"><span class="dot"></span>The gap</span>
+        <h2>Most of your traffic leaves without giving you anything</h2>
+        <p>They did not buy, and they did not hand over an address. There is nothing left to follow up with — unless you asked for something cheaper than an email.</p>
+      </div>
+      <div class="ps mt-12 rv">
+        <div class="ps-col bad">
+          <p class="tag">Without push</p>
+          <ul>
+            <li><span class="mk"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></span>A popup asks for an email, and most visitors close it.</li>
+            <li><span class="mk"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></span>The cart they abandoned is anonymous — no address, no follow-up.</li>
+            <li><span class="mk"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></span>Restocks and price cuts go unannounced to the people who wanted them.</li>
+            <li><span class="mk"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></span>Sends land in a promotions tab, if they land at all.</li>
+          </ul>
+        </div>
+        <div class="ps-col good">
+          <p class="tag">With Qpushly</p>
+          <ul>
+            <li><span class="mk"><svg viewBox="0 0 24 24" set:html={check} /></span>One tap subscribes them — nothing to type, nothing to verify.</li>
+            <li><span class="mk"><svg viewBox="0 0 24 24" set:html={check} /></span>Abandoned carts get a reminder on the device they were browsing on.</li>
+            <li><span class="mk"><svg viewBox="0 0 24 24" set:html={check} /></span>Restocks and price drops alert the exact shoppers who looked.</li>
+            <li><span class="mk"><svg viewBox="0 0 24 24" set:html={check} /></span>Every send reports impressions, clicks, orders and revenue.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────────────── INSIDE THE APP ─────────────────────── -->
+  <section class="sec alt">
+    <div class="wrap split">
+      <div class="rv">
+        <span class="eyebrow"><span class="dot"></span>Inside the app</span>
+        <h2 class="mt-3.5">Everything sits inside your Shopify admin</h2>
+        <p class="lead">
+          Qpushly is an embedded app — same navigation, same components, same
+          place you manage everything else. Nothing to log into separately.
+        </p>
+        <ul class="checklist">
+          <li><svg viewBox="0 0 24 24" set:html={check} />A dashboard with revenue, subscribers, sends and impressions over 7 to 60 days</li>
+          <li><svg viewBox="0 0 24 24" set:html={check} />Five automations you switch on individually, each with up to three reminders</li>
+          <li><svg viewBox="0 0 24 24" set:html={check} />A campaign editor with image, click URL, audience and scheduling</li>
+          <li><svg viewBox="0 0 24 24" set:html={check} />A subscriber list you can filter by browser, OS and device</li>
+          <li><svg viewBox="0 0 24 24" set:html={check} />CSV import and export, so your list is never locked in</li>
+        </ul>
+      </div>
+      <div class="rv"><AppShot /></div>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────── BENTO ────────────────────────── -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="shead ctr rv">
+        <span class="eyebrow"><span class="dot"></span>What it does</span>
+        <h2>Five automations and a campaign tool</h2>
+        <p>Automations fire on real store events. Campaigns are for the moments you decide.</p>
+      </div>
+
+      <div class="fbento mt-12 rv">
+        <article class="fb lead">
+          <div>
+            <span class="kicker">Opt-in</span>
+            <h3>The shortest subscribe in ecommerce</h3>
+            <p>
+              A visitor allows notifications once and they are on your list —
+              tied to that browser, on that device. No address to type, no
+              confirmation email, nothing to verify. Put the invite behind a
+              button anywhere in your theme, or let the embed handle it.
+            </p>
+            <div class="chips">
+              <span class="ch on">Chrome</span>
+              <span class="ch on">Edge</span>
+              <span class="ch on">Firefox</span>
+              <span class="ch on">Android</span>
+              <span class="ch on">macOS Safari</span>
+              <span class="ch">iOS · home screen only</span>
+            </div>
+          </div>
+          <div class="fb-viz">
+            <div>
+              <div class="anim-optin">
+                <div class="op-card">
+                  <span class="ic"></span>
+                  <span class="ln"></span>
+                  <span class="op-btn">Allow</span>
+                </div>
+                <div class="op-sub">
+                  <svg viewBox="0 0 24 24" set:html={check} />
+                  Subscriber added
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="fb">
+          <span class="kicker">Abandoned cart</span>
+          <h3>Reminders on a timer you set</h3>
+          <p>A cart goes quiet, and up to three reminders go out on the delays you choose. Recovering it stops the rest.</p>
+          <div class="fb-viz">
+            <div>
+              <div class="anim-flow">
+                <span class="fl-line"></span>
+                <div class="fl-step s1"><span class="fd"><i></i></span><span class="fl-lbl">Cart abandoned</span></div>
+                <div class="fl-step s2"><span class="fd"><i></i></span><span class="fl-lbl">Wait 30 min</span></div>
+                <div class="fl-step s3"><span class="fd"><i></i></span><span class="fl-lbl">Reminder sent</span></div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="fb">
+          <span class="kicker">Back in stock</span>
+          <h3>Tell the people who looked</h3>
+          <p>Qpushly remembers which products each subscriber viewed. When a variant returns, they hear about it.</p>
+          <div class="fb-viz">
+            <div>
+              <div class="anim-stock">
+                <div class="srow"><span class="th"></span><span class="ln"></span><span class="pill ok">In stock</span></div>
+                <div class="srow flip"><span class="th"></span><span class="ln"></span><span class="pill no">Sold out</span><span class="pill ok">In stock</span></div>
+                <div class="srow"><span class="th"></span><span class="ln"></span><span class="pill ok">In stock</span></div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="fb wide">
+          <div>
+            <span class="kicker">Attribution</span>
+            <h3>Every send has a number next to it</h3>
+            <p>
+              Clicks carry a campaign tag into the cart, so when the order lands
+              it is attributed back. Impressions, clicks, orders, revenue and
+              conversion rate — per campaign and per automation.
+            </p>
+          </div>
+          <div class="fb-viz">
+            <div>
+              <div class="anim-bars">
+                <span style="--h:42%"></span><span style="--h:58%"></span><span style="--h:36%"></span>
+                <span style="--h:74%"></span><span style="--h:52%"></span><span style="--h:88%"></span>
+                <span style="--h:66%"></span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="fb">
+          <span class="kicker">Price drop</span>
+          <h3>When it gets cheaper</h3>
+          <p>Qpushly stores the price a shopper saw. Drop below it and the people watching that product get told.</p>
+          <div class="fb-viz">
+            <div>
+              <div class="anim-seg">
+                <span class="node">Price cut</span>
+                <span class="branch b1"></span><span class="branch b2"></span><span class="branch b3"></span>
+                <span class="leaf l1">Viewed it</span>
+                <span class="leaf l2">Carted it</span>
+                <span class="leaf l3">Tracked it</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="fb">
+          <span class="kicker">Campaigns</span>
+          <h3>Send now, or at 9am Friday</h3>
+          <p>Title, message, image, click URL, audience. Send it immediately or schedule it and walk away.</p>
+          <div class="fb-viz">
+            <div>
+              <div class="anim-clock">
+                <span class="cl-face"></span>
+                <div class="cl-rows">
+                  <div class="cl-row done"><span class="cb"></span><b>Autumn drop</b> · sent</div>
+                  <div class="cl-row done"><span class="cb"></span><b>Restock</b> · sent</div>
+                  <div class="cl-row"><span class="cb"></span><b>Friday sale</b> · 09:00</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="fb">
+          <span class="kicker">Browse abandonment</span>
+          <h3>Looked, did not buy</h3>
+          <p>A nudge for the product someone spent time on and left behind — separate from the cart sequence.</p>
+          <div class="fb-viz">
+            <div>
+              <div class="anim-bars">
+                <span style="--h:30%"></span><span style="--h:46%"></span><span style="--h:62%"></span>
+                <span style="--h:44%"></span><span style="--h:78%"></span><span style="--h:56%"></span>
+                <span style="--h:92%"></span>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────────────────── STEPS ──────────────────────────── -->
+  <section class="sec alt">
+    <div class="wrap">
+      <div class="shead ctr rv">
+        <span class="eyebrow"><span class="dot"></span>Setup</span>
+        <h2>Three steps, no developer</h2>
+      </div>
+      <div class="steps mt-12 rv">
+        <div class="step">
+          <span class="sn">Step 01</span>
+          <h3>Install the app</h3>
+          <p>From the Shopify App Store. It appears in your admin sidebar like any other embedded app.</p>
+        </div>
+        <div class="step">
+          <span class="sn">Step 02</span>
+          <h3>Turn on the app embed</h3>
+          <p>Online Store → Themes → Customize → App embeds → enable Qpushly, then Save. This is what registers the service worker on your storefront.</p>
+        </div>
+        <div class="step">
+          <span class="sn">Step 03</span>
+          <h3>Switch on an automation</h3>
+          <p>Start with welcome notifications, then abandoned cart. Subscribers start arriving as soon as visitors accept the prompt.</p>
+        </div>
+      </div>
+      <p class="lead-c mt-10 rv">
+        Step 2 is the one people miss. The <a href={GUIDE_URL} class="underline underline-offset-2">user guide</a> walks through it with screenshots.
+      </p>
+    </div>
+  </section>
+
+  <!-- ──────────────────────── PRICING TEASER ──────────────────── -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="shead ctr rv">
+        <span class="eyebrow"><span class="dot"></span>Pricing</span>
+        <h2>Start free, upgrade when push is earning</h2>
+        <p>Billing is handled by Shopify — it appears on your Shopify invoice, and you can change or cancel it yourself at any time.</p>
+      </div>
+      <div class="plans mt-12 rv">
+        {PLANS.map((p) => (
+          <div class={`plan ${p.feat ? 'feat' : ''}`}>
+            {p.badge && <span class="badge">{p.badge}</span>}
+            <span class="ptag">{p.name}</span>
+            <div class="price"><b>{p.price}</b><span>/month</span></div>
+            <p class="pdesc">{p.desc}</p>
+            <ul>
+              {p.features.map((f) => (
+                <li><svg viewBox="0 0 24 24" set:html={check} />{f}</li>
+              ))}
+            </ul>
+            <a href={APP_STORE_URL} class={`btn ${p.feat ? 'btn-accent' : 'btn-line'}`}>Install free</a>
+          </div>
+        ))}
+      </div>
+      {!PRICING_CONFIRMED && (
+        <p class="note-box mt-8 max-w-3xl mx-auto">
+          <b>Note:</b> the figures above are indicative. The plans and prices shown
+          on the Shopify App Store listing and inside the app are authoritative —
+          they are what Shopify charges.
+        </p>
+      )}
+      <p class="text-center mt-8 rv">
+        <a href="/pricing" class="btn btn-line">Compare plans in full</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────── FAQ ──────────────────────────── -->
+  <section class="sec alt">
+    <div class="wrap">
+      <div class="shead ctr rv">
+        <span class="eyebrow"><span class="dot"></span>Questions</span>
+        <h2>The things merchants ask first</h2>
+      </div>
+      <div class="faq mt-10 rv">
+        {faqs.map(([q, a]) => (
+          <details>
+            <summary>{q}<span class="pm"></span></summary>
+            <p class="ans">{a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────── CTA ──────────────────────────── -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="cta rv">
+        <span class="eyebrow"><span class="dot"></span>Get started</span>
+        <h2>Ask for a tap, not an <em>email address</em></h2>
+        <p>Install Qpushly, enable the theme embed, and start building a list from the traffic you already have.</p>
+        <div class="flex flex-wrap justify-center gap-3">
+          <a href={APP_STORE_URL} class="btn btn-accent btn-lg">Install free</a>
+          <a href={DEMO_URL} class="btn btn-ghost btn-lg">Book a demo</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,98 @@
+---
+/**
+ * The hero centrepiece: a dark OS notification shade where Qpushly's pushes
+ * arrive one after another. Each card is a REAL automation from the app —
+ * abandoned cart, back in stock, price drop, campaign — so the visual doubles
+ * as the feature list.
+ *
+ * Structure only lives here; the arrival sequence is driven by
+ * public/assets/app.js (`#js-shade`). Without JS every card is rendered in its
+ * final state by the `show` class already present in the markup, so the panel
+ * still reads correctly with scripting off.
+ */
+
+const pushes = [
+  {
+    icon: 'cart',
+    app: 'Northline Supply',
+    ago: 'now',
+    title: 'Still thinking it over?',
+    text: 'Your Alder Wool Overshirt is waiting. Free returns for 30 days.',
+    buttons: ['Back to cart', 'Not now'],
+    thumb: true,
+  },
+  {
+    icon: 'box',
+    app: 'Northline Supply',
+    ago: '2m',
+    title: 'Back in stock: Kiln Mug, Slate',
+    text: "The size you looked at is available again.",
+    buttons: ['Shop it'],
+    thumb: true,
+  },
+  {
+    icon: 'tag',
+    app: 'Northline Supply',
+    ago: '9m',
+    title: 'Price drop on something you viewed',
+    text: 'Harbour Canvas Tote is now £38, down from £52.',
+    buttons: ['See the deal'],
+    thumb: true,
+  },
+];
+
+const ICONS: Record<string, string> = {
+  cart: '<circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>',
+  box: '<path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"/><path d="M12 22V12"/><path d="m3.3 7 8.7 5 8.7-5"/>',
+  tag: '<path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"/>',
+  bell: '<path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/>',
+};
+---
+<div class="nstage">
+  <div class="shade in" id="js-shade">
+    <div class="sh-top">
+      <span class="sh-time">9:41</span>
+      <span class="sh-dots"><i></i><i></i><i></i></span>
+    </div>
+    <div class="sh-body">
+      <p class="sh-lbl">Notifications</p>
+
+      {pushes.map((p, i) => (
+        <div class="npush show" data-i={i}>
+          <div class="nicon">
+            <svg viewBox="0 0 24 24" set:html={ICONS[p.icon]} />
+          </div>
+          <div class="nbody">
+            <div class="nhd">
+              <span class="napp">{p.app}</span>
+              <span class="nago">{p.ago}</span>
+            </div>
+            <p class="ntitle">{p.title}</p>
+            <p class="ntext">{p.text}</p>
+            <div class="nbtns">
+              {p.buttons.map((b, bi) => (
+                <span class={`nb ${bi === 0 ? 'p' : 's'}`}>{b}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+      ))}
+
+      {/* Outcome strip — the point of the product is that these numbers exist.
+          Illustrative figures for a fictional store, deliberately unremarkable:
+          no performance claim is being made here or anywhere in the copy. */}
+      <div class="sh-foot">
+        <div class="sh-stat"><div class="k">Delivered</div><div class="v">1,284</div></div>
+        <div class="sh-stat"><div class="k">Clicks</div><div class="v">316</div></div>
+        <div class="sh-stat"><div class="k">Orders</div><div class="v">42</div></div>
+      </div>
+    </div>
+  </div>
+
+  {/* Three chips only, and all three are anchored so they hang OFF the panel's
+      corners rather than floating over the notification text. Long labels here
+      grow inwards and collide with the copy — keep them short. */}
+  <span class="nchip nc-1"><span class="nd"></span>One tap</span>
+  <span class="nchip nc-2"><span class="nd"></span>5 automations</span>
+  <span class="nchip nc-3"><span class="nd"></span>Attributed</span>
+</div>

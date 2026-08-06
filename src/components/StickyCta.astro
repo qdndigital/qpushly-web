@@ -1,0 +1,9 @@
+---
+// Mobile-only sticky bar. Mirrors the header: install is primary (self-serve,
+// $0 entry tier), demo is the secondary path — see Header.astro.
+import { APP_STORE_URL } from '../consts';
+---
+<div class="stickycta">
+  <span class="lbl">Free plan · no card required</span>
+  <a href={APP_STORE_URL} class="btn btn-accent">Install free</a>
+</div>

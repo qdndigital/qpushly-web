@@ -1,0 +1,13 @@
+---
+// Qpushly mark — the shared QDN-family frame plus the "signal" glyph, matching
+// the `qpushly` preset in the user-guide theme (src/config.ts there). Keeping
+// one component means the header, footer and any future placement can never
+// drift apart.
+const { class: cls = 'logomark' } = Astro.props;
+---
+<svg class={cls} viewBox="0 0 32 32" fill="none" aria-hidden="true">
+  <rect x="2.5" y="2.5" width="27" height="27" rx="7" stroke="#101317" stroke-width="2" />
+  <rect x="9.2" y="17.2" width="5.6" height="5.6" rx="1.5" fill="#2f6fed" />
+  <path d="M12 14 A6 6 0 0 1 18 20" stroke="#2f6fed" stroke-width="2.4" stroke-linecap="round" />
+  <path d="M12 10.5 A9.5 9.5 0 0 1 21.5 20" stroke="#2f6fed" stroke-width="2.4" stroke-linecap="round" />
+</svg>

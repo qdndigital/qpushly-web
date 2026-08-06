@@ -1,0 +1,21 @@
+---
+import Base from '../layouts/Base.astro';
+import { GUIDE_URL } from '../consts';
+---
+
+<Base
+  title="Thanks — Qpushly"
+  description="Your message has been sent."
+  noindex={true}
+>
+  <section class="phero">
+    <div class="wrap">
+      <h1>Got it — thanks.</h1>
+      <p>Your message is with us. We reply within one business day, usually sooner.</p>
+      <div class="hero-cta mt-8">
+        <a href="/" class="btn btn-accent">Back to the site</a>
+        <a href={GUIDE_URL} class="btn btn-line">Read the guide</a>
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,79 @@
+---
+/**
+ * A pure-CSS mockup of Qpushly's embedded admin — the Dashboard, with the four
+ * metric tiles the real app shows (Revenue generated / Subscribers / Campaigns
+ * sent / Impressions), the subscriber-growth chart, and the automation list
+ * with its toggles.
+ *
+ * Deliberately a mockup, not a screenshot: it stays sharp at any width, weighs
+ * nothing, and can't go stale in a way nobody notices. Replace with real
+ * 1600×900 screenshots for the App Store listing — those have different rules
+ * (see the app repo's docs/APP_STORE_LISTING.md).
+ */
+const nav = ['Dashboard', 'Automations', 'Campaigns', 'Subscribers', 'Settings'];
+const tiles = [
+  ['Revenue generated', '$4,180'],
+  ['Subscribers', '2,914'],
+  ['Campaigns sent', '18'],
+  ['Impressions', '11.2k'],
+];
+const rows: [string, string, boolean][] = [
+  ['Welcome notifications', '3 reminders', true],
+  ['Abandoned cart recovery', '2 reminders', true],
+  ['Back in stock', '1 reminder', true],
+  ['Price drop', 'Not set up', false],
+];
+---
+<div class="appshot">
+  <div class="as-top">
+    <i></i><i></i><i></i>
+    <span class="u"><span class="umk"></span><b>northline-supply</b>.myshopify.com</span>
+  </div>
+  <div class="as-body">
+    <aside class="as-side">
+      <div class="brand"><span class="mk"></span>Qpushly</div>
+      {nav.map((n, i) => (
+        <div class={`as-nav ${i === 0 ? 'on' : ''}`}><span class="d"></span>{n}</div>
+      ))}
+    </aside>
+    <div class="as-main">
+      <div class="as-h">
+        <div class="ttl">Dashboard<small>Last 30 days</small></div>
+        <span class="as-live"><i></i>Live</span>
+      </div>
+
+      <div class="as-tiles">
+        {tiles.map(([k, v]) => (
+          <div class="as-tile"><div class="k">{k}</div><div class="v">{v}</div></div>
+        ))}
+      </div>
+
+      <div class="as-chart">
+        <div class="ch-h">
+          <span class="ch-t">Subscriber gain</span>
+          <span class="ch-r">30 days</span>
+        </div>
+        <svg viewBox="0 0 320 78" preserveAspectRatio="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="qgrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#2f6fed" stop-opacity="0.28" />
+              <stop offset="100%" stop-color="#2f6fed" stop-opacity="0" />
+            </linearGradient>
+          </defs>
+          <path class="ca" d="M0 66 L24 61 L48 63 L72 52 L96 55 L120 44 L144 46 L168 34 L192 37 L216 26 L240 22 L264 25 L288 14 L320 9 L320 78 L0 78 Z" />
+          <path class="cl" d="M0 66 L24 61 L48 63 L72 52 L96 55 L120 44 L144 46 L168 34 L192 37 L216 26 L240 22 L264 25 L288 14 L320 9" />
+        </svg>
+      </div>
+
+      <div class="as-rows">
+        {rows.map(([name, sub, on]) => (
+          <div class={`as-row ${on ? '' : 'off'}`}>
+            <span class="rn">{name}</span>
+            <span class="rs">{sub}</span>
+            <span class="rt"></span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</div>

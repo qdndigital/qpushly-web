@@ -1,0 +1,145 @@
+---
+import Base from '../layouts/Base.astro';
+import { SUPPORT_EMAIL } from '../consts';
+
+// ⚠️  This is a factual, engineering-accurate description of what the app stores
+// — derived from prisma/schema.prisma in the qpushly repo — NOT legal advice and
+// NOT a reviewed policy. Shopify requires a privacy policy URL before it will
+// publish the app, and requires the policy to actually describe the data the app
+// collects. Have a lawyer review this before submitting, and update it whenever
+// the schema changes.
+const updated = '5 August 2026';
+---
+
+<Base
+  title="Privacy Policy — Qpushly"
+  description="What Qpushly collects, why, how long it is kept, and how it is deleted."
+>
+  <section class="phero">
+    <div class="wrap">
+      <p class="crumb"><a href="/">Home</a> / Privacy Policy</p>
+      <h1>Privacy Policy</h1>
+      <p class="upd font-mono text-xs text-muted mt-4">Last updated {updated}</p>
+    </div>
+  </section>
+
+  <section class="sec pt-4">
+    <div class="wrap prose">
+      <p>
+        Qpushly ("we", "the app") is a Shopify application that sends web push
+        notifications on behalf of the merchant who installs it. This policy
+        explains what the app collects, why, and when it is deleted.
+      </p>
+      <p>
+        Two relationships matter here. The <b>merchant</b> installs Qpushly and
+        decides what messages to send; in data-protection terms the merchant is the
+        controller of their shoppers' data and we act as their processor. If you are
+        a <b>shopper</b> who subscribed to notifications from a store, the store you
+        subscribed to is your first point of contact — but you can also write to us
+        directly at <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>.
+      </p>
+
+      <h2>What we collect from merchants</h2>
+      <ul>
+        <li>Your <b>shop domain</b> and the Shopify access token issued when you install the app. The token is what lets us read the products and orders you granted access to.</li>
+        <li>The <b>store name, contact email, logo, default notification icon and default click URL</b> you enter in Settings.</li>
+        <li>The <b>campaigns and automations</b> you create, including their copy, images, schedules and performance counters.</li>
+        <li>A <b>web push signing keypair</b> generated for your store, so notifications from your store are verifiably from your store.</li>
+      </ul>
+
+      <h2>What we collect about shoppers</h2>
+      <p>
+        Only for shoppers who have <b>explicitly allowed notifications</b> in their
+        browser. Visitors who decline, or who never see the prompt, are not recorded.
+      </p>
+      <ul>
+        <li><b>Push subscription</b> — the endpoint URL issued by the shopper's browser vendor and the two cryptographic keys needed to encrypt a message to it. This is the address we send to; it identifies a browser installation, not a person.</li>
+        <li><b>Device and locale</b> — browser, operating system, device type, user agent, language and timezone. These let the merchant see the makeup of their list and let us stop sending to browsers that no longer support delivery.</li>
+        <li><b>Contact details, where the store provides them</b> — email address and phone number, and city and country. These are populated from the merchant's own Shopify order data, not collected from the shopper by us.</li>
+        <li><b>Cart activity</b> — a snapshot of cart contents, value and currency, so an abandoned-cart reminder can reference what was in the cart.</li>
+        <li><b>Product activity</b> — which products and variants a subscriber viewed, whether they were in stock, and the price at the time, so back-in-stock and price-drop alerts can be sent to the right people.</li>
+        <li><b>Notification activity</b> — which notifications were delivered, clicked and converted.</li>
+        <li><b>Attributed orders</b> — when a notification click leads to an order, we record that order: its id, total, currency, the customer's email and first name, and for each line item the title, quantity, price and product/variant id. Only orders we can attribute to a notification are recorded — we do not keep a copy of your other orders.</li>
+      </ul>
+
+      <h2>What we deliberately do not do</h2>
+      <ul>
+        <li>We do not use any third-party geolocation, IP-lookup or fingerprinting service. An earlier version of the storefront script called an external geolocation API; that was removed.</li>
+        <li>We do not sell, rent or share shopper data with advertisers or data brokers.</li>
+        <li>We do not use one merchant's data to serve another merchant. Every record is scoped to the shop it belongs to.</li>
+        <li>We do not load fonts, scripts or images from third-party origins onto your storefront.</li>
+        <li>We do not track visitors who have not subscribed to notifications.</li>
+      </ul>
+
+      <h2>Legal basis</h2>
+      <p>
+        For shoppers, the basis is <b>consent</b> — a browser push subscription
+        cannot exist without the shopper actively allowing notifications, and the
+        subscription can be revoked at any time from the browser's own site
+        settings. For merchant account data, the basis is <b>performance of a
+        contract</b>: we cannot run the app for you without it.
+      </p>
+
+      <h2>How a shopper unsubscribes</h2>
+      <p>
+        Blocking notifications for a site in the browser's settings stops delivery
+        immediately and permanently — it does not depend on us. Shoppers can also
+        ask the merchant to remove their record, which the merchant can do from the
+        subscriber list in the app.
+      </p>
+
+      <h2>Retention and deletion</h2>
+      <ul>
+        <li><b>On uninstall</b> — the access tokens for your store are deleted immediately, so no credentials for your store remain usable.</li>
+        <li><b>On shop redaction</b> — Shopify sends a shop-redaction request after an uninstall. On receipt we delete every record belonging to your store: subscribers, campaigns, automations, notification logs, tracked products, carts, attributed orders, settings and sessions.</li>
+        <li><b>On customer redaction</b> — when Shopify sends a customer-redaction request, we delete that customer's subscriber record, cart history and attributed order rows, matched on the email address and phone number Shopify supplies.</li>
+        <li><b>On customer data request</b> — when Shopify sends a data-access request on behalf of a customer, we provide the merchant with the records we hold for that person so the merchant can respond.</li>
+      </ul>
+
+      <h2>Where data is processed</h2>
+      <p>
+        The application and its PostgreSQL database run on infrastructure operated
+        by our hosting provider. Notifications are delivered through the push
+        services operated by the shopper's own browser vendor (for example Google,
+        Mozilla or Apple) — that delivery hop is inherent to the Web Push standard,
+        and the message body is encrypted so that only the shopper's browser can
+        read it.
+      </p>
+
+      <h2>Sub-processors</h2>
+      <ul>
+        <li><b>Shopify</b> — the platform the app is installed on; source of product, order and customer data, and the payment processor for the app's own subscription.</li>
+        <li><b>Our application host</b> — runs the app server and its database.</li>
+        <li><b>Browser push services</b> — deliver the encrypted notification to the shopper's device.</li>
+      </ul>
+
+      <h2>Security</h2>
+      <p>
+        All traffic is served over HTTPS. Storefront requests reach the app through
+        Shopify's app proxy and are rejected unless Shopify's signature verifies.
+        Webhook deliveries are rejected unless their HMAC verifies. Access is scoped
+        to the minimum Shopify permissions the app needs to work.
+      </p>
+
+      <h2>Your rights</h2>
+      <p>
+        Depending on where you live you may have the right to access, correct,
+        export, restrict or delete your personal data, and to withdraw consent.
+        Shoppers should contact the store they subscribed to; merchants and shoppers
+        can also reach us at <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>.
+        We respond within 30 days.
+      </p>
+
+      <h2>Changes</h2>
+      <p>
+        If we change what the app collects, we update this page and move the date at
+        the top. Material changes affecting merchants are also announced in the app.
+      </p>
+
+      <h2>Contact</h2>
+      <p>
+        <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>
+      </p>
+    </div>
+  </section>
+</Base>

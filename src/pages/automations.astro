@@ -1,0 +1,174 @@
+---
+import Base from '../layouts/Base.astro';
+import { APP_STORE_URL, GUIDE_URL } from '../consts';
+
+const check = '<path d="M20 6 9 17l-5-5"/>';
+
+// One row per automation actually shipped in the app (app/services/automations/*
+// plus the welcome + campaign reminder paths). Keep this list honest — the App
+// Store rejects listings that describe features the installed app doesn't have.
+const automations = [
+  {
+    tag: 'Automation 01',
+    name: 'Welcome notifications',
+    trigger: 'Fires when: a visitor subscribes',
+    body: 'The first message a new subscriber gets, while they are still on your site and still interested. Use it to introduce the store, hand out a first-order code, or point at the collection they were browsing.',
+    points: [
+      'Sends within minutes of the opt-in',
+      'Up to three messages in sequence',
+      'Two buttons per notification, each with its own link',
+    ],
+  },
+  {
+    tag: 'Automation 02',
+    name: 'Abandoned cart recovery',
+    trigger: 'Fires when: a cart sits untouched for ten minutes',
+    body: 'The storefront sends a cart snapshot whenever it changes. When one goes quiet, Qpushly queues the first reminder — on the same device the shopper was using, so the cart is one tap away.',
+    points: [
+      'Cart value and contents available to the message',
+      'Recovery stops the remaining reminders automatically',
+      'Recovered carts are marked and linked to the order',
+    ],
+  },
+  {
+    tag: 'Automation 03',
+    name: 'Browse abandonment',
+    trigger: 'Fires when: a product was viewed but never bought',
+    body: 'Not every shopper gets as far as the cart. This one follows up on the product someone spent time with and then left — a separate sequence from cart recovery, so the two never talk over each other.',
+    points: [
+      'Tracks the specific product that was viewed',
+      'Skips anyone who has since added it to the cart',
+      'Runs on its own delay schedule',
+    ],
+  },
+  {
+    tag: 'Automation 04',
+    name: 'Back in stock',
+    trigger: 'Fires when: a tracked variant is available again',
+    body: 'Qpushly remembers which variants each subscriber looked at while they were sold out. Shopify tells the app when the product changes, and the people who wanted it hear about it first.',
+    points: [
+      'Driven by Shopify’s products/update webhook',
+      'Per-variant, not just per-product',
+      'Sends once per restock, not on every product edit',
+    ],
+  },
+  {
+    tag: 'Automation 05',
+    name: 'Price drop',
+    trigger: 'Fires when: the price falls below what the shopper saw',
+    body: 'The price a shopper saw is stored alongside the product they viewed. Cut it, and the alert goes to exactly the people for whom the price was the reason they hesitated.',
+    points: [
+      'Compares against the price at the time of viewing',
+      'Message can carry the old and new price',
+      'No alert when a price goes up',
+    ],
+  },
+];
+---
+
+<Base
+  title="Automations — Qpushly for Shopify"
+  description="The five Qpushly automations: welcome, abandoned cart recovery, browse abandonment, back in stock and price drop — each with up to three timed reminders."
+>
+  <section class="phero">
+    <div class="wrap">
+      <p class="crumb"><a href="/">Home</a> / Automations</p>
+      <h1>Five automations that fire on what actually happened</h1>
+      <p>
+        Each one listens to a real event in your store — a subscribe, a stalled
+        cart, a restock, a price cut — and sends up to three messages on delays
+        you choose. Every automation has its own on/off switch and its own numbers.
+      </p>
+      <div class="hero-cta mt-8">
+        <a href={APP_STORE_URL} class="btn btn-accent btn-lg">Install free</a>
+        <a href={GUIDE_URL} class="btn btn-line btn-lg">Read the guide</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec pt-0">
+    <div class="wrap">
+      <div class="ucs">
+        {automations.map((a) => (
+          <article class="uc rv">
+            <div>
+              <span class="tag">{a.tag}</span>
+              <h3>{a.name}</h3>
+              <p>{a.body}</p>
+              <ul>
+                {a.points.map((p) => (
+                  <li><svg viewBox="0 0 24 24" set:html={check} />{p}</li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <div class="rounded-xl2 border p-6" style="border-color:var(--line); background:var(--grad-tint)">
+                <p class="kicker" style="color:var(--blue-ink)">{a.trigger}</p>
+                <div class="anim-flow mt-5">
+                  <span class="fl-line"></span>
+                  <div class="fl-step s1"><span class="fd"><i></i></span><span class="fl-lbl">Event detected</span></div>
+                  <div class="fl-step s2"><span class="fd"><i></i></span><span class="fl-lbl">Delay you set</span></div>
+                  <div class="fl-step s3"><span class="fd"><i></i></span><span class="fl-lbl">Notification sent</span></div>
+                </div>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- what every automation shares -->
+  <section class="sec alt">
+    <div class="wrap">
+      <div class="shead ctr rv">
+        <span class="eyebrow"><span class="dot"></span>Shared behaviour</span>
+        <h2>The same controls on all five</h2>
+        <p>Learn one editor and you have learned them all.</p>
+      </div>
+      <div class="cards mt-12 rv">
+        <div class="card">
+          <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 6v6l4 2"/><circle cx="12" cy="12" r="10"/></svg></div>
+          <h3>Timed sequences</h3>
+          <p>Up to three reminders per automation. Each one has its own delay, and the editor stops you setting a later reminder earlier than an earlier one.</p>
+        </div>
+        <div class="card">
+          <div class="ic"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h10M4 17h7"/></svg></div>
+          <h3>Your own copy</h3>
+          <p>Title and message per reminder, plus a primary and secondary button — each with its own text and link.</p>
+        </div>
+        <div class="card">
+          <div class="ic"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M18 17V9M13 17V5M8 17v-3"/></svg></div>
+          <h3>Per-automation stats</h3>
+          <p>Clicks, impressions, revenue and conversion rate on the automations list, so you can see which sequences justify themselves.</p>
+        </div>
+        <div class="card">
+          <div class="ic"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></div>
+          <h3>Off is a real state</h3>
+          <p>Every automation has an enable toggle. Turning one off stops new sends without deleting the copy you wrote.</p>
+        </div>
+        <div class="card">
+          <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 2 2 7l10 5 10-5z"/><path d="m2 17 10 5 10-5M2 12l10 5 10-5"/></svg></div>
+          <h3>Product context</h3>
+          <p>Cart and product automations carry the item with them — title, image, handle and the price the shopper saw.</p>
+        </div>
+        <div class="card">
+          <div class="ic"><svg viewBox="0 0 24 24" set:html={check} /></div>
+          <h3>No double sends</h3>
+          <p>Each subscriber gets a given reminder once. Duplicate webhook deliveries from Shopify are ignored rather than re-processed.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="cta rv">
+        <span class="eyebrow"><span class="dot"></span>Get started</span>
+        <h2>Start with <em>two</em> of them</h2>
+        <p>Welcome and abandoned cart cover most of the value. Add the rest once you can see what they earn.</p>
+        <a href={APP_STORE_URL} class="btn btn-accent btn-lg">Install free</a>
+      </div>
+    </div>
+  </section>
+</Base>

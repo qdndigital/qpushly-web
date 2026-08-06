@@ -1,0 +1,117 @@
+---
+import Base from '../layouts/Base.astro';
+import { SUPPORT_EMAIL } from '../consts';
+
+// ⚠️  Plain-language terms written to be accurate about how the app behaves.
+// NOT legal advice and NOT a reviewed contract — have a lawyer review before
+// submitting to the App Store.
+const updated = '5 August 2026';
+---
+
+<Base
+  title="Terms of Service — Qpushly"
+  description="The terms under which you may use the Qpushly Shopify app."
+>
+  <section class="phero">
+    <div class="wrap">
+      <p class="crumb"><a href="/">Home</a> / Terms of Service</p>
+      <h1>Terms of Service</h1>
+      <p class="upd font-mono text-xs text-muted mt-4">Last updated {updated}</p>
+    </div>
+  </section>
+
+  <section class="sec pt-4">
+    <div class="wrap prose">
+      <p>
+        These terms cover your use of Qpushly, a Shopify application that sends web
+        push notifications from your store. By installing the app you agree to them.
+      </p>
+
+      <h2>1. What the app does</h2>
+      <p>
+        Qpushly lets you collect web push subscribers from your storefront and send
+        them broadcast campaigns and event-triggered automations. Delivery uses the
+        Web Push standard, which means it depends on the shopper's browser and on
+        the push service operated by their browser vendor.
+      </p>
+
+      <h2>2. Your responsibilities</h2>
+      <ul>
+        <li>You are the controller of your shoppers' data. What you send, and to whom, is your decision.</li>
+        <li>You will keep a privacy policy on your store that discloses your use of push notifications.</li>
+        <li>You will not use the app to send unlawful, deceptive, harassing or misleading messages, and you will not impersonate anyone.</li>
+        <li>You will not use the app to send notifications at a frequency intended to pressure or badger a shopper.</li>
+        <li>You will comply with the marketing and consent laws that apply where your shoppers are.</li>
+      </ul>
+
+      <h2>3. Delivery is best-effort</h2>
+      <p>
+        We queue and sign your notifications and hand them to the shopper's push
+        service. From that point delivery is outside our control: browsers throttle,
+        revoke and expire subscriptions, devices go offline, and operating systems
+        decide how and whether to display a notification. We do not guarantee that
+        any particular notification is delivered, displayed, or seen.
+      </p>
+
+      <h2>4. Availability</h2>
+      <p>
+        We aim to keep the app available and will not deliberately take it down
+        without notice, but we do not offer a service-level guarantee. Scheduled
+        sends are processed on a recurring sweep, so a send may go out slightly after
+        its scheduled time.
+      </p>
+
+      <h2>5. Fees and billing</h2>
+      <p>
+        Paid plans are billed by Shopify through its billing system and appear on
+        your Shopify invoice. Prices and plan contents are those shown by Shopify at
+        the time you subscribe. You can upgrade, downgrade or cancel from Shopify's
+        own plan page at any time; cancellation takes effect at the end of the
+        current billing period, and we do not issue partial refunds for an unused
+        part of a period. Uninstalling the app stops future charges.
+      </p>
+
+      <h2>6. Free plan</h2>
+      <p>
+        The free plan is offered as-is and may change. We will give notice in the app
+        before reducing what the free plan includes.
+      </p>
+
+      <h2>7. Your data</h2>
+      <p>
+        Your data remains yours. You can export your subscriber list at any time.
+        Deletion is described in the <a href="/privacy">Privacy Policy</a>: tokens go
+        on uninstall, everything else goes when Shopify sends the shop-redaction
+        request that follows.
+      </p>
+
+      <h2>8. Suspension</h2>
+      <p>
+        We may suspend or terminate access if the app is used in breach of these
+        terms, in a way that harms shoppers, or in a way that threatens the stability
+        or security of the service. Where circumstances allow, we will tell you first.
+      </p>
+
+      <h2>9. Liability</h2>
+      <p>
+        To the maximum extent permitted by law, we are not liable for indirect or
+        consequential loss, including lost sales or lost profits, arising from use of
+        the app or from any notification being delivered, not delivered, or delivered
+        late. Our total liability is limited to the fees you paid us for the app in
+        the twelve months before the claim.
+      </p>
+
+      <h2>10. Changes to these terms</h2>
+      <p>
+        We may update these terms. Material changes will be announced in the app, and
+        the date at the top of this page will change. Continuing to use the app after
+        a change means you accept it.
+      </p>
+
+      <h2>11. Contact</h2>
+      <p>
+        <a href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>
+      </p>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,162 @@
+---
+import Base from '../layouts/Base.astro';
+import { APP_STORE_URL } from '../consts';
+
+// Everything on this page is a surface Qpushly genuinely uses today. Anything
+// aspirational is in the clearly-labelled "Not yet" section — a listing or site
+// that implies an integration the app doesn't have is a review problem.
+const native = [
+  {
+    name: 'Theme app embed',
+    sub: 'Online Store',
+    body: 'Qpushly ships as an app embed, so it turns on from the theme editor and off again the same way. No Liquid to paste, nothing left behind in your theme when you uninstall.',
+  },
+  {
+    name: 'App proxy',
+    sub: 'Storefront requests',
+    body: 'Storefront requests travel through Shopify\'s app proxy, which signs them. Qpushly rejects anything unsigned, so nobody can push fake subscribers or fake metrics into your store.',
+  },
+  {
+    name: 'Product webhooks',
+    sub: 'products/update',
+    body: 'Restocks and price changes come from Shopify itself rather than from polling — which is what makes back-in-stock and price-drop alerts land in minutes.',
+  },
+  {
+    name: 'Order webhooks',
+    sub: 'orders/create · orders/updated',
+    body: 'When an order arrives, Qpushly matches it against the notification that was clicked, so campaigns and automations get orders and revenue next to them.',
+  },
+  {
+    name: 'Shopify Files',
+    sub: 'Campaign images',
+    body: 'Campaign images and your notification logo upload into your own Shopify Files, served from Shopify\'s CDN. No third-party image host in the loop.',
+  },
+  {
+    name: 'Shopify Billing',
+    sub: 'Managed Pricing',
+    body: 'Plans are hosted by Shopify. The charge lands on your Shopify invoice and you manage it from Shopify\'s own plan page.',
+  },
+  {
+    name: 'Cart attributes',
+    sub: 'Attribution',
+    body: 'A notification click writes a campaign tag onto the cart. That is the thread that ties a send to the order it produced.',
+  },
+  {
+    name: 'Web Push (VAPID)',
+    sub: 'Standards-based',
+    body: 'Delivery uses the open Web Push protocol with a signing keypair unique to your store — Chrome, Edge, Firefox, Opera and Safari, no vendor SDK.',
+  },
+];
+
+const check = '<path d="M20 6 9 17l-5-5"/>';
+---
+
+<Base
+  title="Integrations — Qpushly for Shopify"
+  description="Qpushly is Shopify-native: theme app embed, signed app proxy, product and order webhooks, Shopify Files, Shopify Billing, and standards-based Web Push."
+>
+  <section class="phero">
+    <div class="wrap">
+      <p class="crumb"><a href="/">Home</a> / Integrations</p>
+      <h1>Shopify-native, not Shopify-adjacent</h1>
+      <p>
+        Qpushly uses the platform's own surfaces — the theme editor, the signed
+        app proxy, Shopify's webhooks, Shopify's file storage and Shopify's
+        billing. Less to configure, and less that breaks when your theme changes.
+      </p>
+    </div>
+  </section>
+
+  <section class="sec pt-4">
+    <div class="wrap">
+      <div class="cards rv">
+        {native.map((n) => (
+          <div class="card">
+            <div class="ic">
+              <svg viewBox="0 0 24 24"><path d="M12 2 2 7l10 5 10-5z"/><path d="m2 17 10 5 10-5M2 12l10 5 10-5"/></svg>
+            </div>
+            <h3>{n.name}</h3>
+            <p class="kicker mb-2">{n.sub}</p>
+            <p>{n.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- browser support — the question everyone actually has -->
+  <section class="sec alt">
+    <div class="wrap">
+      <div class="shead ctr rv">
+        <span class="eyebrow"><span class="dot"></span>Reach</span>
+        <h2>Where the notifications arrive</h2>
+        <p>Web push is a browser feature, so support depends on the shopper's browser rather than on anything you configure.</p>
+      </div>
+      <div class="intg mt-12 rv">
+        {[
+          ['Chrome', 'Desktop + Android'],
+          ['Edge', 'Desktop'],
+          ['Firefox', 'Desktop + Android'],
+          ['Opera', 'Desktop + Android'],
+          ['Safari', 'macOS'],
+          ['Samsung Internet', 'Android'],
+          ['Safari iOS', 'Home-screen apps only'],
+          ['Any Shopify theme', 'No code required'],
+        ].map(([nm, sub]) => (
+          <div class="i">
+            <span class="lg"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3v9l7.5 4"/></svg></span>
+            <span class="nm">{nm}<small>{sub}</small></span>
+          </div>
+        ))}
+      </div>
+      <p class="lead-c mt-10 rv">
+        On iPhone and iPad, Apple only allows web push once the shopper has added
+        your store to their home screen. Qpushly records each subscriber's browser,
+        OS and device, so you can see your own mix rather than guessing from
+        market-share charts.
+      </p>
+    </div>
+  </section>
+
+  <!-- honest "not yet" section -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="shead rv">
+        <span class="eyebrow"><span class="dot"></span>Not yet</span>
+        <h2>Things Qpushly does not do today</h2>
+        <p>Listed here so you do not have to find out after installing.</p>
+      </div>
+      <div class="ps mt-10 rv">
+        <div class="ps-col bad">
+          <p class="tag">No integration yet</p>
+          <ul>
+            <li><span class="mk"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></span>Email or SMS sending — Qpushly is push only</li>
+            <li><span class="mk"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></span>Klaviyo, Mailchimp or other ESP sync</li>
+            <li><span class="mk"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></span>Shopify Flow triggers and actions</li>
+            <li><span class="mk"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></span>A public API or outgoing webhooks</li>
+          </ul>
+        </div>
+        <div class="ps-col good">
+          <p class="tag">What you can do instead</p>
+          <ul>
+            <li><span class="mk"><svg viewBox="0 0 24 24" set:html={check} /></span>Export your subscriber list to CSV at any time</li>
+            <li><span class="mk"><svg viewBox="0 0 24 24" set:html={check} /></span>Import a CSV from another push provider when you switch</li>
+            <li><span class="mk"><svg viewBox="0 0 24 24" set:html={check} /></span>Point every notification at any URL, including a landing page your ESP tracks</li>
+            <li><span class="mk"><svg viewBox="0 0 24 24" set:html={check} /></span>Read attributed revenue per campaign inside the app</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec pt-0">
+    <div class="wrap">
+      <div class="cta rv">
+        <span class="eyebrow"><span class="dot"></span>Get started</span>
+        <h2>Nothing to wire up, <em>nothing to host</em></h2>
+        <p>Install from the App Store and enable the embed. That is the whole integration.</p>
+        <a href={APP_STORE_URL} class="btn btn-accent btn-lg">Install free</a>
+      </div>
+    </div>
+  </section>
+</Base>

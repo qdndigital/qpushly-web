@@ -1,0 +1,92 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import StickyCta from '../components/StickyCta.astro';
+import { SUPPORT_EMAIL } from '../consts';
+import { PLANS, PRICING_CONFIRMED } from '../plans';
+import '../styles/global.css';
+
+const { title, description, noindex = false } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+
+// Offers are omitted from the JSON-LD until the Managed Pricing tiers are
+// confirmed — search engines quote this, and a wrong price here misprices the
+// app in results. See src/plans.ts.
+const offers = PRICING_CONFIRMED
+  ? PLANS.map((p) => ({
+      '@type': 'Offer',
+      name: p.name,
+      price: p.price.replace('$', ''),
+      priceCurrency: 'USD',
+    }))
+  : undefined;
+
+const jsonld = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': 'https://qpushly.com/#org',
+      name: 'Qpushly',
+      url: 'https://qpushly.com/',
+      email: SUPPORT_EMAIL,
+      description:
+        'Qpushly is a Shopify app for web push notifications — shoppers subscribe in one tap from the storefront, and merchants send broadcast campaigns plus automations for abandoned carts, browse abandonment, back-in-stock and price drops.',
+      logo: 'https://qpushly.com/favicon.svg',
+      areaServed: 'Worldwide',
+    },
+    {
+      '@type': 'SoftwareApplication',
+      '@id': 'https://qpushly.com/#app',
+      name: 'Qpushly — Web Push Notifications',
+      applicationCategory: 'BusinessApplication',
+      operatingSystem: 'Shopify',
+      description:
+        'Web push notifications for Shopify: one-tap opt-in with no email or phone number, broadcast campaigns with image and click URL, and five automations — welcome, abandoned cart, browse abandonment, back in stock and price drop — with revenue attributed per send.',
+      ...(offers ? { offers } : {}),
+      publisher: { '@id': 'https://qpushly.com/#org' },
+    },
+    {
+      '@type': 'WebSite',
+      '@id': 'https://qpushly.com/#website',
+      url: 'https://qpushly.com/',
+      name: 'Qpushly',
+      publisher: { '@id': 'https://qpushly.com/#org' },
+    },
+  ],
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {/* Self-hosted fonts (see src/styles/fonts.css) — no third-party origin.
+        Preload the faces visible above the fold. */}
+    <link rel="preload" href="/fonts/inter-vf-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/jetbrainsmono-vf-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex,follow" />}
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Qpushly" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonld)} />
+  </head>
+  <body>
+    <Header />
+    <main><slot /></main>
+    <Footer />
+    <StickyCta />
+    <script src="/assets/app.js" is:inline defer></script>
+  </body>
+</html>

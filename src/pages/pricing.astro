@@ -1,0 +1,146 @@
+---
+import Base from '../layouts/Base.astro';
+import { APP_STORE_URL, SUPPORT_EMAIL } from '../consts';
+import { PLANS, MATRIX, PAYMENT_TRIAL_DAYS, PRICING_CONFIRMED } from '../plans';
+
+const check = '<path d="M20 6 9 17l-5-5"/>';
+const cell = (v: string) =>
+  v === '✓' ? '<span class="yes">✓</span>' : v === '—' ? '<span class="no">—</span>' : v;
+
+const faqs = [
+  [
+    'How does billing work?',
+    'Through Shopify. When you pick a plan you approve it in your Shopify admin, and the charge appears on your regular Shopify invoice alongside everything else. Qpushly never sees or stores a card.',
+  ],
+  [
+    'Can I change or cancel the plan myself?',
+    'Yes. Upgrading, downgrading and cancelling are all done from Shopify\'s own plan page, which Qpushly links to from the dashboard and from Settings. You do not need to contact support and you do not need to reinstall.',
+  ],
+  [
+    'What happens to my subscribers if I downgrade?',
+    'Nothing is deleted. Your subscriber list stays intact — features that are not in the lower plan simply stop being available until you upgrade again.',
+  ],
+  [
+    'What happens if I uninstall?',
+    'Shopify stops the recurring charge. Your access tokens are removed straight away, and the rest of your data is deleted when Shopify sends the shop-redaction request that follows an uninstall.',
+  ],
+  [
+    'Is there a free trial on the paid plan?',
+    `Yes — Shopify's standard ${PAYMENT_TRIAL_DAYS}-day trial applies before the first charge. The Free plan itself is not a trial; it does not expire.`,
+  ],
+];
+---
+
+<Base
+  title="Pricing — Qpushly for Shopify"
+  description="Qpushly pricing: a free plan that does not expire, and a paid plan for stores running push as a real channel. Billed through Shopify, cancel any time."
+>
+  <section class="phero">
+    <div class="wrap">
+      <p class="crumb"><a href="/">Home</a> / Pricing</p>
+      <h1>Start free. Pay when push is earning.</h1>
+      <p>
+        Billed through Shopify, on your normal Shopify invoice. Change or cancel it
+        yourself at any time, from Shopify's own plan page.
+      </p>
+    </div>
+  </section>
+
+  <section class="sec pt-4">
+    <div class="wrap">
+      {!PRICING_CONFIRMED && (
+        <div class="note-box mb-10 max-w-3xl mx-auto">
+          <b>Before you rely on these numbers:</b> Qpushly bills through Shopify
+          Managed Pricing, which means the plans and prices live in Shopify, not on
+          this page. The App Store listing and the app itself are authoritative. If
+          anything below disagrees with what Shopify shows you, Shopify is right —
+          and please <a href={`mailto:${SUPPORT_EMAIL}`}>tell us</a> so we can fix
+          the page.
+        </div>
+      )}
+
+      <div class="plans rv">
+        {PLANS.map((p) => (
+          <div class={`plan ${p.feat ? 'feat' : ''}`}>
+            {p.badge && <span class="badge">{p.badge}</span>}
+            <span class="ptag">{p.name}</span>
+            <div class="price"><b>{p.price}</b><span>/month</span></div>
+            <p class="pdesc">{p.desc}</p>
+            <ul>
+              {p.features.map((f) => (
+                <li><svg viewBox="0 0 24 24" set:html={check} />{f}</li>
+              ))}
+            </ul>
+            <a href={APP_STORE_URL} class={`btn ${p.feat ? 'btn-accent' : 'btn-line'}`}>
+              {p.price === '$0' ? 'Install free' : `Start ${PAYMENT_TRIAL_DAYS}-day trial`}
+            </a>
+          </div>
+        ))}
+      </div>
+
+      <p class="text-center kicker mt-8">
+        The Free plan is not a trial — it does not expire.
+      </p>
+    </div>
+  </section>
+
+  <!-- comparison matrix -->
+  <section class="sec alt">
+    <div class="wrap">
+      <div class="shead ctr rv">
+        <span class="eyebrow"><span class="dot"></span>Compare</span>
+        <h2>What you get on each plan</h2>
+      </div>
+      <div class="tscroll mt-10 rv">
+        <table class="matrix">
+          <thead>
+            <tr>
+              <th>Feature</th>
+              {PLANS.map((p) => (
+                <th class={p.feat ? 'colhi' : ''}>{p.name}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {MATRIX.map((row) => (
+              <tr>
+                <th>{row.label}</th>
+                {row.cells.map((c, i) => (
+                  <td class={PLANS[i]?.feat ? 'colhi' : ''} set:html={cell(c)} />
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="shead ctr rv">
+        <span class="eyebrow"><span class="dot"></span>Billing questions</span>
+        <h2>How the money side works</h2>
+      </div>
+      <div class="faq mt-10 rv">
+        {faqs.map(([q, a]) => (
+          <details>
+            <summary>{q}<span class="pm"></span></summary>
+            <p class="ans">{a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="sec pt-0">
+    <div class="wrap">
+      <div class="cta rv">
+        <span class="eyebrow"><span class="dot"></span>Get started</span>
+        <h2>The free plan is a <em>real plan</em></h2>
+        <p>Install it, build a list, and only pay once push is worth paying for.</p>
+        <a href={APP_STORE_URL} class="btn btn-accent btn-lg">Install free</a>
+      </div>
+    </div>
+  </section>
+</Base>
