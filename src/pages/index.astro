@@ -211,7 +211,24 @@ const faqs = [
           </div>
         </article>
 
-        <article class="fb wide">
+        <article class="fb">
+          <span class="kicker">Price drop</span>
+          <h3>When it gets cheaper</h3>
+          <p>Qpushly stores the price a shopper saw. Drop below it and the people watching that product get told.</p>
+          <div class="fb-viz">
+            <div>
+              <div class="anim-seg">
+                <span class="node">Price cut</span>
+                <span class="branch b1"></span><span class="branch b2"></span><span class="branch b3"></span>
+                <span class="leaf l1">Viewed it</span>
+                <span class="leaf l2">Carted it</span>
+                <span class="leaf l3">Tracked it</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="fb full">
           <div>
             <span class="kicker">Attribution</span>
             <h3>Every send has a number next to it</h3>
@@ -227,23 +244,6 @@ const faqs = [
                 <span style="--h:42%"></span><span style="--h:58%"></span><span style="--h:36%"></span>
                 <span style="--h:74%"></span><span style="--h:52%"></span><span style="--h:88%"></span>
                 <span style="--h:66%"></span>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <article class="fb">
-          <span class="kicker">Price drop</span>
-          <h3>When it gets cheaper</h3>
-          <p>Qpushly stores the price a shopper saw. Drop below it and the people watching that product get told.</p>
-          <div class="fb-viz">
-            <div>
-              <div class="anim-seg">
-                <span class="node">Price cut</span>
-                <span class="branch b1"></span><span class="branch b2"></span><span class="branch b3"></span>
-                <span class="leaf l1">Viewed it</span>
-                <span class="leaf l2">Carted it</span>
-                <span class="leaf l3">Tracked it</span>
               </div>
             </div>
           </div>
@@ -267,10 +267,12 @@ const faqs = [
           </div>
         </article>
 
-        <article class="fb">
+        <article class="fb wide">
+          <div>
           <span class="kicker">Browse abandonment</span>
           <h3>Looked, did not buy</h3>
           <p>A nudge for the product someone spent time on and left behind — separate from the cart sequence.</p>
+          </div>
           <div class="fb-viz">
             <div>
               <div class="anim-bars">
@@ -281,6 +283,7 @@ const faqs = [
             </div>
           </div>
         </article>
+
       </div>
     </div>
   </section>

@@ -12,7 +12,7 @@ own `package.json`. Same structure, stack and design system as
 
 - [Astro](https://astro.build) 4 — static output, zero client framework
 - Tailwind CSS 3 (design tokens in `tailwind.config.mjs`)
-- Self-hosted fonts in `public/fonts/`: **Inter** (UI + display), **JetBrains Mono** (labels + numerals)
+- Self-hosted fonts in `public/fonts/`: **Be Vietnam Pro** (UI + display, latin + vietnamese — the brand font), **JetBrains Mono** (labels + numerals)
 - Netlify Forms (the `support` form on `/support`)
 - One 3 kB client script (`public/assets/app.js`): sticky-header border, mobile nav, reveal-on-scroll
 
@@ -20,7 +20,7 @@ own `package.json`. Same structure, stack and design system as
 
 50% Shopify Polaris · 30% Linear · 20% Apple. White ground, **near-black primary**
 (`#111418` buttons/brand), with **Qpushly blue** (`#2f6fed`) reserved for accents,
-links and live data. Inter, light borders, minimal shadow, no decorative page
+links and live data. Be Vietnam Pro, light borders, minimal shadow, no decorative page
 gradients, quiet/quick motion.
 
 The blue is not arbitrary: it is the `qpushly` entry in the shared QDN-family

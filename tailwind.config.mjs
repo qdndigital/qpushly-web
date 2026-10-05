@@ -5,7 +5,7 @@
  * The one deliberate difference is the accent: Qpushly's family colour is blue
  * (#2f6fed — matching the `qpushly` preset in the shared guide theme), not
  * QSortby's emerald. Everything else — white ground, near-black primary
- * buttons, Inter, light borders, minimal shadow, no decorative page gradients —
+ * buttons, Be Vietnam Pro, light borders, minimal shadow, no decorative page gradients —
  * is intentionally identical so the two products read as one family.
  */
 export default {
@@ -34,10 +34,10 @@ export default {
         down: "#c4392f",
       },
       fontFamily: {
-        // Two families: Inter for everything, JetBrains Mono for the tracked
+        // Two families: Be Vietnam Pro for everything, JetBrains Mono for the tracked
         // uppercase labels and tabular numerals.
-        sans: ["Inter", "system-ui", "-apple-system", "sans-serif"],
-        display: ["Inter", "system-ui", "-apple-system", "sans-serif"],
+        sans: ["Be Vietnam Pro", "system-ui", "-apple-system", "sans-serif"],
+        display: ["Be Vietnam Pro", "system-ui", "-apple-system", "sans-serif"],
         mono: ['"JetBrains Mono"', "ui-monospace", "SFMono-Regular", "monospace"],
       },
       fontSize: {

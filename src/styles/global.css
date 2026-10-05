@@ -425,7 +425,7 @@
 /* =====================================================================
    FEATURE BENTO — signature mini-animations, one per capability.
    ===================================================================== */
-.fbento { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+.fbento { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; grid-auto-flow:dense; }
 .fb { position:relative; display:flex; flex-direction:column; background:var(--surface); border:1px solid var(--line); border-radius:18px; padding:22px 22px 20px; overflow:hidden; transition:transform .25s var(--ease), box-shadow .25s var(--ease), border-color .25s var(--ease); }
 .fb:hover { transform:translateY(-3px); border-color:var(--blue-line); box-shadow:var(--shadow-float); }
 .fb .kicker { display:block; margin-bottom:9px; color:var(--blue-ink); }
@@ -433,9 +433,10 @@
 .fb p { font-size:.92rem; color:var(--ink-2); line-height:1.6; max-width:42ch; }
 .fb .fb-viz { margin-top:18px; }
 .fb.wide { grid-column:span 2; }
+.fb.full { grid-column:span 3; }
 @media (min-width:768px){
-  .fb.wide { display:grid; grid-template-columns:1.05fr .95fr; align-items:center; gap:22px; }
-  .fb.wide .fb-viz { margin-top:0; }
+  .fb.wide, .fb.full { display:grid; grid-template-columns:1.05fr .95fr; align-items:center; gap:22px; }
+  .fb.wide .fb-viz, .fb.full .fb-viz { margin-top:0; }
 }
 /* `.fb.lead` — the ONE card that carries the buying reason. Exactly one per grid. */
 .fb.lead { grid-column:span 3; padding:28px; }
@@ -445,8 +446,8 @@
   .fb.lead { display:grid; grid-template-columns:1fr 1fr; align-items:center; gap:30px; }
   .fb.lead .fb-viz { margin-top:0; }
 }
-@media (max-width:880px){ .fbento { grid-template-columns:1fr 1fr; } .fb.wide, .fb.lead { grid-column:span 2; } }
-@media (max-width:560px){ .fbento { grid-template-columns:1fr; } .fb.wide, .fb.lead { grid-column:span 1; display:flex; padding:22px; } .fb.lead h3 { font-size:1.3rem; } }
+@media (max-width:880px){ .fbento { grid-template-columns:1fr 1fr; } .fb.wide, .fb.full, .fb.lead { grid-column:span 2; } }
+@media (max-width:560px){ .fbento { grid-template-columns:1fr; } .fb.wide, .fb.full, .fb.lead { grid-column:span 1; display:flex; padding:22px; } .fb.lead h3 { font-size:1.3rem; } }
 .fb .chips { display:flex; flex-wrap:wrap; gap:7px; margin-top:14px; }
 .fb .ch { font-family:var(--mono); font-size:11px; font-weight:600; padding:5px 10px; border-radius:999px; background:var(--bg-2); border:1px solid var(--line); color:var(--muted); }
 .fb .ch.on { background:var(--blue-soft); border-color:var(--blue-line); color:var(--blue-ink); }
