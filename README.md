@@ -24,8 +24,11 @@ links and live data. Inter, light borders, minimal shadow, no decorative page
 gradients, quiet/quick motion.
 
 The blue is not arbitrary: it is the `qpushly` entry in the shared QDN-family
-theme (`qsortby-user-guide/src/config.ts` → `PRESETS`), along with the "signal"
-logo glyph. **If you change the accent, change it in all three places** —
+theme (`qsortby-user-guide/src/config.ts` → `PRESETS`). The logo is the real
+brand symbol from the app's brand kit (`qpushly/public/brand/`), inlined in
+`Logo.astro`; `public/favicon.svg` is the brand app icon.
+
+**If you change the accent, change it in all three places** —
 `tailwind.config.mjs`, `src/styles/global.css` (`:root`), and the guide's preset —
 or the app family stops looking like a family.
 
@@ -105,7 +108,7 @@ A listing price that differs from what Shopify charges is an automatic rejection
   *secondary* CTAs (primary is install), so the funnel works meanwhile.
 - **Domain** → `astro.config.mjs` `site`, plus the `qpushly.com` references in
   `public/sitemap.xml`, `public/robots.txt` and the JSON-LD in `src/layouts/Base.astro`.
-- **`SUPPORT_EMAIL`** → `support@qpushly.com`; confirm the inbox exists and is monitored.
+- **`SUPPORT_EMAIL`** → `hello@qdn.vn`; confirm the inbox exists and is monitored.
 - **Privacy Policy and Terms** are written to be *factually accurate* about what the
   app stores (derived from `prisma/schema.prisma`) but they are **not legally
   reviewed**. Have a lawyer read both before submitting, and re-read the privacy page

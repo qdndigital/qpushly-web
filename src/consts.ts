@@ -16,7 +16,7 @@ export const DEMO_URL = 'https://cal.com/qpushly/demo';
 // repo). Point links at the subdomain.
 export const GUIDE_URL = 'https://guide.qpushly.com';
 
-export const SUPPORT_EMAIL = 'support@qpushly.com';
+export const SUPPORT_EMAIL = 'hello@qdn.vn';
 
 // Primary nav.
 export const NAV = [

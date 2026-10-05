@@ -1,13 +1,12 @@
 ---
-// Qpushly mark — the shared QDN-family frame plus the "signal" glyph, matching
-// the `qpushly` preset in the user-guide theme (src/config.ts there). Keeping
-// one component means the header, footer and any future placement can never
-// drift apart.
+// Qpushly mark — the real brand symbol (a rounded "Q" with the blue notification chip),
+// copied from the app's brand kit (qpushly/public/brand/qpushly-symbol.svg). Keeping one
+// component means the header, footer and any future placement can never drift apart.
+// The viewBox is the glyph's own bounds, so the mark sits flush in its box.
 const { class: cls = 'logomark' } = Astro.props;
 ---
-<svg class={cls} viewBox="0 0 32 32" fill="none" aria-hidden="true">
-  <rect x="2.5" y="2.5" width="27" height="27" rx="7" stroke="#101317" stroke-width="2" />
-  <rect x="9.2" y="17.2" width="5.6" height="5.6" rx="1.5" fill="#2f6fed" />
-  <path d="M12 14 A6 6 0 0 1 18 20" stroke="#2f6fed" stroke-width="2.4" stroke-linecap="round" />
-  <path d="M12 10.5 A9.5 9.5 0 0 1 21.5 20" stroke="#2f6fed" stroke-width="2.4" stroke-linecap="round" />
+<svg class={cls} viewBox="0 140 292 260" aria-hidden="true">
+  <path fill="#1E1E1A" fill-rule="evenodd" d="M77.97 140L216.54 140A75.37 75.37 0 0 1 291.91 215.37L291.91 285.61A43.09 43.09 0 0 0 265.59 276.63L220.16 276.63L220.15 233.17A28.76 28.76 0 0 0 191.4 204.42L97.4 204.42A25.64 25.64 0 0 0 71.76 230.05L71.76 311.73A25.25 25.25 0 0 0 97.01 336.98L153.14 336.98L153.14 373.67A43.09 43.09 0 0 0 162.12 400L74.33 400A74.33 74.33 0 0 1 0 325.67L0 217.97A77.97 77.97 0 0 1 77.97 140Z"/>
+  <path fill="#2F6FED" d="M196.23 293.40H265.59A26.33 26.33 0 0 1 291.91 319.72V373.68A26.33 26.33 0 0 1 265.59 400.00H196.23A26.33 26.33 0 0 1 169.91 373.68V319.72A26.33 26.33 0 0 1 196.23 293.40Z"/>
+  <circle cx="267.5" cy="321.1" r="13.4" fill="#F4F1EA"/>
 </svg>
