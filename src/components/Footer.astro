@@ -1,16 +1,16 @@
 ---
 import Logo from './Logo.astro';
-import { SUPPORT_EMAIL, DEMO_URL, GUIDE_URL } from '../consts';
+import { SUPPORT_EMAIL, APP_STORE_URL, GUIDE_URL } from '../consts';
 const year = new Date().getFullYear();
 ---
 <footer class="site">
   <div class="wrap">
     <div class="foot">
       <div>
-        <a href="/" class="logo" aria-label="Qpushly home">
+        <a href="/" class="logo" aria-label="QPushly home">
           <Logo />
-          <span>Qpushly</span>
         </a>
+        <p class="fd tagline">One tap, always reachable<span class="dot">.</span></p>
         <p class="fd">Web push notifications for Shopify. Shoppers opt in with one tap — no email, no phone number — and every send reports what it brought back.</p>
       </div>
       <div>
@@ -30,14 +30,13 @@ const year = new Date().getFullYear();
       </div>
       <div>
         <h2>Get started</h2>
-        <a href={DEMO_URL}>Book a demo</a>
-        <a href="/pricing">Pricing</a>
-        <a href="/automations">Automations</a>
+        <a href={APP_STORE_URL}>Shopify App Store</a>
+        <a href="/#watch">Watch the 1-minute intro</a>
       </div>
     </div>
     <div class="fbar">
-      <span>© {year} Qpushly. All rights reserved.</span>
-      <span>Built for Shopify merchants.</span>
+      <span>© {year} QDN. All rights reserved.</span>
+      <span>QPushly is a Shopify app by QDN.</span>
     </div>
   </div>
 </footer>

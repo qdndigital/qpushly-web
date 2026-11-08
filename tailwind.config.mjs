@@ -13,23 +13,26 @@ export default {
   theme: {
     extend: {
       colors: {
-        bg: "#ffffff",
-        "bg-2": "#f6f7f8",
+        // Brand guidelines v1.0: Paper 60 · Ink 30 · Qpushly blue 10.
+        bg: "#FFFFFF",
+        "bg-2": "#F6F7FA",
+        paper: "#F7F4EE",
+        sky: "#F2F6FF",
         surface: "#ffffff",
-        ink: "#101317",
-        "ink-2": "#41464d",
-        muted: "#697079",
-        faint: "#9aa0a8",
-        line: "#e6e7ea",
-        "line-2": "#d3d6da",
-        // primary = ink/near-black; blue is the accent (kept under `blue.*`)
-        btn: { DEFAULT: "#111418", hover: "#2a2f37" },
+        ink: "#1E1E1A",
+        "ink-2": "#5E5C55",
+        muted: "#6E6B63",
+        faint: "#9A968C",
+        line: "#E7E9EF",
+        "line-2": "#D6DAE3",
+        // Primary action = Qpushly blue (guideline §11 header sample).
+        btn: { DEFAULT: "#2F6FED", hover: "#1E4FBF" },
         blue: {
-          DEFAULT: "#2f6fed",
-          ink: "#1e4fbf",
-          bright: "#5b93ff",
-          soft: "#eaf0fe",
-          line: "#c9d9fb",
+          DEFAULT: "#2F6FED",
+          ink: "#1E4FBF",
+          bright: "#4C8DFF",
+          soft: "#DCE7FD",
+          line: "#B9CEF8",
         },
         down: "#c4392f",
       },

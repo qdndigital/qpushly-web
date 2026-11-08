@@ -7,8 +7,8 @@ const check = '<path d="M20 6 9 17l-5-5"/>';
 ---
 
 <Base
-  title="How it works — Qpushly for Shopify"
-  description="How Qpushly works end to end: the theme app embed, the browser opt-in, the service worker, the automations, and how a click gets attributed back to an order."
+  title="How it works — QPushly for Shopify"
+  description="How QPushly works end to end: the theme app embed, the browser opt-in, the service worker, the automations, and how a click gets attributed back to an order."
 >
   <section class="phero">
     <div class="wrap">
@@ -27,16 +27,18 @@ const check = '<path d="M20 6 9 17l-5-5"/>';
         <span class="eyebrow"><span class="dot"></span>Stage 01 · Opt-in</span>
         <h2 class="mt-3.5">A visitor allows notifications</h2>
         <p class="lead">
-          The theme app embed loads a small script on your storefront. When a
-          shopper accepts the browser's notification prompt, their browser hands
-          over a push endpoint — an address the browser vendor will accept
-          messages for.
+          The theme app embed loads a small script on your storefront. After a
+          delay you choose, your own invite appears. Only if the shopper accepts
+          it does the browser show its permission prompt — and when they allow
+          that, the browser hands over a push endpoint, an address the browser
+          vendor will accept messages for.
         </p>
         <ul class="checklist">
           <li><svg viewBox="0 0 24 24" set:html={check} />The endpoint belongs to the browser, not to you — nobody else can send to it</li>
           <li><svg viewBox="0 0 24 24" set:html={check} />Your store gets its own signing keypair, so notifications are provably from you</li>
           <li><svg viewBox="0 0 24 24" set:html={check} />No email address or phone number is collected at this point</li>
-          <li><svg viewBox="0 0 24 24" set:html={check} />Put the invite behind any element in your theme with a data attribute</li>
+          <li><svg viewBox="0 0 24 24" set:html={check} />Invite wording, delay and position are set in the theme editor</li>
+          <li><svg viewBox="0 0 24 24" set:html={check} />Or skip the invite and ask from any button with a data attribute</li>
         </ul>
       </div>
       <div class="rv">
@@ -62,14 +64,14 @@ const check = '<path d="M20 6 9 17l-5-5"/>';
     <div class="wrap">
       <div class="shead ctr rv">
         <span class="eyebrow"><span class="dot"></span>Stage 02 · Signals</span>
-        <h2>Three things the embed watches</h2>
+        <h2>Four things the embed reports</h2>
         <p>Only what the automations actually need. Every request is signed by Shopify's app proxy, so nothing else can post data into your store's account.</p>
       </div>
       <div class="steps mt-12 rv">
         <div class="step">
           <span class="sn">Signal</span>
           <h3>Cart changes</h3>
-          <p>A snapshot of the cart — items, value, currency — whenever it changes. This is what makes abandoned-cart recovery possible for a shopper who never gave you an address.</p>
+          <p>For subscribers only: a snapshot of the cart — items, value, currency — whenever it changes. This is what makes abandoned-cart recovery possible for a shopper who never gave you an address, and it is closed the moment they order.</p>
         </div>
         <div class="step">
           <span class="sn">Signal</span>
@@ -79,13 +81,19 @@ const check = '<path d="M20 6 9 17l-5-5"/>';
         <div class="step">
           <span class="sn">Signal</span>
           <h3>Notification clicks</h3>
-          <p>A click carries a campaign tag into the cart as an attribute. When the order is created, Shopify's webhook lets Qpushly match order to send.</p>
+          <p>A click carries a campaign tag into the cart as an attribute. When the order is created, Shopify's webhook lets QPushly match order to send.</p>
+        </div>
+        <div class="step">
+          <span class="sn">Signal</span>
+          <h3>“Buy it now” presses</h3>
+          <p>“Buy it now” skips the cart, so there is nowhere to carry a tag. The embed notes which notification brought the shopper the moment they press it, so those orders are credited too.</p>
         </div>
       </div>
       <p class="lead-c mt-10 rv">
         What the embed does <b>not</b> do: call third-party geolocation services,
-        load fonts or scripts from another origin, or track visitors who have not
-        subscribed.
+        load fonts or scripts from another origin, or fingerprint visitors. Cart
+        and product tracking can each be switched off in the theme editor if you
+        do not use the automations that need them.
       </p>
     </div>
   </section>
@@ -108,11 +116,12 @@ const check = '<path d="M20 6 9 17l-5-5"/>';
       </div>
       <div class="rv">
         <span class="eyebrow"><span class="dot"></span>Stage 03 · Sending</span>
-        <h2 class="mt-3.5">A scheduler sweeps every ten minutes</h2>
+        <h2 class="mt-3.5">A scheduler sweeps every minute</h2>
         <p class="lead">
-          Nothing depends on you having a tab open. On each pass Qpushly looks for
-          campaigns whose time has come, reminders that are due, carts that have
-          gone quiet, and browsers that were abandoned — for every shop, one at a time.
+          Nothing depends on you having a tab open. On each pass QPushly picks up
+          restocks and price changes Shopify has reported, campaigns whose time has
+          come, reminders that are due, carts that have gone quiet and products
+          that were viewed and left.
         </p>
         <ul class="checklist">
           <li><svg viewBox="0 0 24 24" set:html={check} />Sends are signed with your store's own keypair before they leave</li>
@@ -136,9 +145,10 @@ const check = '<path d="M20 6 9 17l-5-5"/>';
           and per-automation numbers wherever you are looking at one.
         </p>
         <ul class="checklist">
-          <li><svg viewBox="0 0 24 24" set:html={check} />Impressions and clicks per campaign</li>
+          <li><svg viewBox="0 0 24 24" set:html={check} />Impressions and clicks per campaign — and per version in an A/B test</li>
           <li><svg viewBox="0 0 24 24" set:html={check} />Orders and attributed revenue, matched via order webhooks</li>
-          <li><svg viewBox="0 0 24 24" set:html={check} />Conversion rate per automation</li>
+          <li><svg viewBox="0 0 24 24" set:html={check} />Sends, clicks and revenue per automation</li>
+          <li><svg viewBox="0 0 24 24" set:html={check} />Each order credited once, even when Shopify reports it again after an edit or refund</li>
           <li><svg viewBox="0 0 24 24" set:html={check} />Subscriber breakdown by browser, OS and device</li>
         </ul>
       </div>

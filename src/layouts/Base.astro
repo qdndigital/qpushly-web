@@ -2,16 +2,16 @@
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import StickyCta from '../components/StickyCta.astro';
-import { SUPPORT_EMAIL } from '../consts';
+import { SUPPORT_EMAIL, SUPPORT_WIDGET_URL, SUPPORT_WIDGET_PRODUCT } from '../consts';
 import { PLANS, PRICING_CONFIRMED } from '../plans';
 import '../styles/global.css';
+import '../styles/v2.css';
 
 const { title, description, noindex = false } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 
-// Offers are omitted from the JSON-LD until the Managed Pricing tiers are
-// confirmed — search engines quote this, and a wrong price here misprices the
-// app in results. See src/plans.ts.
+// Offers are emitted only while PRICING_CONFIRMED is true — search engines
+// quote this, and a wrong price here misprices the app in results. See src/plans.ts.
 const offers = PRICING_CONFIRMED
   ? PLANS.map((p) => ({
       '@type': 'Offer',
@@ -27,18 +27,18 @@ const jsonld = {
     {
       '@type': 'Organization',
       '@id': 'https://qpushly.com/#org',
-      name: 'Qpushly',
+      name: 'QPushly',
       url: 'https://qpushly.com/',
       email: SUPPORT_EMAIL,
       description:
-        'Qpushly is a Shopify app for web push notifications — shoppers subscribe in one tap from the storefront, and merchants send broadcast campaigns plus automations for abandoned carts, browse abandonment, back-in-stock and price drops.',
+        'QPushly is a Shopify app for web push notifications — shoppers subscribe in one tap from the storefront, and merchants send broadcast campaigns plus automations for abandoned carts, browse abandonment, back-in-stock and price drops.',
       logo: 'https://qpushly.com/favicon.svg',
       areaServed: 'Worldwide',
     },
     {
       '@type': 'SoftwareApplication',
       '@id': 'https://qpushly.com/#app',
-      name: 'Qpushly — Web Push Notifications',
+      name: 'QPushly — Web Push Notifications',
       applicationCategory: 'BusinessApplication',
       operatingSystem: 'Shopify',
       description:
@@ -50,7 +50,7 @@ const jsonld = {
       '@type': 'WebSite',
       '@id': 'https://qpushly.com/#website',
       url: 'https://qpushly.com/',
-      name: 'Qpushly',
+      name: 'QPushly',
       publisher: { '@id': 'https://qpushly.com/#org' },
     },
   ],
@@ -71,14 +71,21 @@ const jsonld = {
     <meta name="description" content={description} />
     {noindex && <meta name="robots" content="noindex,follow" />}
     <link rel="canonical" href={canonical} />
-    <link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml" />
-    <meta name="theme-color" content="#ffffff" />
+    <link rel="icon" href="/favicon.svg?v=3" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico?v=3" sizes="any" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#FFFFFF" />
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Qpushly" />
+    <meta property="og:site_name" content="QPushly" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:image" content={new URL('/assets/og.png', Astro.site).href} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="QPushly — reach shoppers after they leave. Web push for Shopify." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={new URL('/assets/og.png', Astro.site).href} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <script type="application/ld+json" set:html={JSON.stringify(jsonld)} />
@@ -89,5 +96,7 @@ const jsonld = {
     <Footer />
     <StickyCta />
     <script src="/assets/app.js" is:inline defer></script>
+    {/* QOne Desk support chat (see consts.ts). */}
+    <script src={SUPPORT_WIDGET_URL} data-product={SUPPORT_WIDGET_PRODUCT} is:inline async></script>
   </body>
 </html>

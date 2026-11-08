@@ -10,19 +10,23 @@ const cell = (v: string) =>
 const faqs = [
   [
     'How does billing work?',
-    'Through Shopify. When you pick a plan you approve it in your Shopify admin, and the charge appears on your regular Shopify invoice alongside everything else. Qpushly never sees or stores a card.',
+    'Through Shopify. When you pick a plan you approve it in your Shopify admin, and the charge appears on your regular Shopify invoice alongside everything else. QPushly never sees or stores a card.',
   ],
   [
     'Can I change or cancel the plan myself?',
-    'Yes. Upgrading, downgrading and cancelling are all done from Shopify\'s own plan page, which Qpushly links to from the dashboard and from Settings. You do not need to contact support and you do not need to reinstall.',
+    'Yes. Open Billing in the app to upgrade, downgrade or cancel — Shopify asks you to approve the change. You do not need to contact support and you do not need to reinstall.',
   ],
   [
     'What happens to my subscribers if I downgrade?',
-    'Nothing is deleted. Your subscriber list stays intact — features that are not in the lower plan simply stop being available until you upgrade again.',
+    'Nothing is deleted. Your subscriber list, campaigns and the copy you wrote stay intact. Automations the Free plan does not include are paused — still there, still editable — and switch back on after you upgrade again.',
   ],
   [
     'What happens if I uninstall?',
     'Shopify stops the recurring charge. Your access tokens are removed straight away, and the rest of your data is deleted when Shopify sends the shop-redaction request that follows an uninstall.',
+  ],
+  [
+    'Is there an annual plan?',
+    'Not at the moment — Pro is billed every 30 days. If an annual option is added, it will show up here and on the app\'s Billing page first.',
   ],
   [
     'Is there a free trial on the paid plan?',
@@ -32,8 +36,8 @@ const faqs = [
 ---
 
 <Base
-  title="Pricing — Qpushly for Shopify"
-  description="Qpushly pricing: a free plan that does not expire, and a paid plan for stores running push as a real channel. Billed through Shopify, cancel any time."
+  title="Pricing — QPushly for Shopify"
+  description="QPushly pricing: a free plan that does not expire, and a paid plan for stores running push as a real channel. Billed through Shopify, cancel any time."
 >
   <section class="phero">
     <div class="wrap">
@@ -41,7 +45,7 @@ const faqs = [
       <h1>Start free. Pay when push is earning.</h1>
       <p>
         Billed through Shopify, on your normal Shopify invoice. Change or cancel it
-        yourself at any time, from Shopify's own plan page.
+        yourself at any time, from the app's Billing page.
       </p>
     </div>
   </section>
@@ -50,7 +54,7 @@ const faqs = [
     <div class="wrap">
       {!PRICING_CONFIRMED && (
         <div class="note-box mb-10 max-w-3xl mx-auto">
-          <b>Before you rely on these numbers:</b> Qpushly bills through Shopify
+          <b>Before you rely on these numbers:</b> QPushly bills through Shopify
           Managed Pricing, which means the plans and prices live in Shopify, not on
           this page. The App Store listing and the app itself are authoritative. If
           anything below disagrees with what Shopify shows you, Shopify is right —
@@ -64,7 +68,7 @@ const faqs = [
           <div class={`plan ${p.feat ? 'feat' : ''}`}>
             {p.badge && <span class="badge">{p.badge}</span>}
             <span class="ptag">{p.name}</span>
-            <div class="price"><b>{p.price}</b><span>/month</span></div>
+            <div class="price"><b>{p.price}</b><span>{p.price === '$0' ? '/forever' : '/30 days'}</span></div>
             <p class="pdesc">{p.desc}</p>
             <ul>
               {p.features.map((f) => (

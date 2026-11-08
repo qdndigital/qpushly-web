@@ -1,74 +1,82 @@
 ---
 import Base from '../layouts/Base.astro';
 import { APP_STORE_URL, GUIDE_URL } from '../consts';
+import NotifCard from '../components/NotifCard.astro';
 
 const check = '<path d="M20 6 9 17l-5-5"/>';
 
+// Example cards use the exact starter copy from the app's
+// app/services/seed-reminders.server.ts.
 // One row per automation actually shipped in the app (app/services/automations/*
 // plus the welcome + campaign reminder paths). Keep this list honest — the App
 // Store rejects listings that describe features the installed app doesn't have.
 const automations = [
   {
-    tag: 'Automation 01',
+    tag: 'Free plan · Pro for 3 messages',
     name: 'Welcome notifications',
+    n: { title: 'Thanks for subscribing', body: 'You’ll be first to hear about new arrivals, restocks and price drops.', time: 'right away' },
     trigger: 'Fires when: a visitor subscribes',
     body: 'The first message a new subscriber gets, while they are still on your site and still interested. Use it to introduce the store, hand out a first-order code, or point at the collection they were browsing.',
     points: [
-      'Sends within minutes of the opt-in',
-      'Up to three messages in sequence',
+      'Can go out within a minute of the opt-in',
+      'One message on Free, up to three in sequence on Pro',
       'Two buttons per notification, each with its own link',
     ],
   },
   {
-    tag: 'Automation 02',
+    tag: 'Pro',
     name: 'Abandoned cart recovery',
+    n: { title: 'You left something behind', body: 'Your cart is still saved. Check out before it sells out.', time: '1h after', buttons: ['View cart'] },
     trigger: 'Fires when: a cart sits untouched for ten minutes',
-    body: 'The storefront sends a cart snapshot whenever it changes. When one goes quiet, Qpushly queues the first reminder — on the same device the shopper was using, so the cart is one tap away.',
+    body: 'The storefront sends a cart snapshot whenever it changes. When one goes quiet, QPushly queues the first reminder — on the same device the shopper was using, so the cart is one tap away.',
     points: [
-      'Cart value and contents available to the message',
-      'Recovery stops the remaining reminders automatically',
-      'Recovered carts are marked and linked to the order',
+      'Message can include the cart value and a link straight back to the cart',
+      'Up to three reminders, each on its own delay',
+      'Stops as soon as the shopper orders; the sale is credited to the reminder they clicked',
     ],
   },
   {
-    tag: 'Automation 03',
+    tag: 'Pro',
     name: 'Browse abandonment',
-    trigger: 'Fires when: a product was viewed but never bought',
-    body: 'Not every shopper gets as far as the cart. This one follows up on the product someone spent time with and then left — a separate sequence from cart recovery, so the two never talk over each other.',
+    n: { title: 'Still thinking it over?', body: 'The item you were looking at is waiting for you.', time: '1h after' },
+    trigger: 'Fires when: a subscriber viewed a product and has been away from it for 30 minutes',
+    body: 'Not every shopper gets as far as the cart. This one follows up on the product someone spent time with and then left — a separate sequence from cart recovery, with its own copy and its own delays.',
     points: [
       'Tracks the specific product that was viewed',
-      'Skips anyone who has since added it to the cart',
+      'Message can name the product and link straight to it',
       'Runs on its own delay schedule',
     ],
   },
   {
-    tag: 'Automation 04',
+    tag: 'Pro',
     name: 'Back in stock',
+    n: { title: 'It’s back in stock', body: 'The item you wanted is available again — while stock lasts.', time: 'on restock' },
     trigger: 'Fires when: a tracked variant is available again',
-    body: 'Qpushly remembers which variants each subscriber looked at while they were sold out. Shopify tells the app when the product changes, and the people who wanted it hear about it first.',
+    body: 'QPushly remembers which variants each subscriber looked at while they were sold out — or who pressed a “Notify me” button you added to the product page. Shopify tells the app when the product changes, and the people who wanted it hear about it first.',
     points: [
-      'Driven by Shopify’s products/update webhook',
+      'Driven by Shopify’s product updates, not by polling',
       'Per-variant, not just per-product',
       'Sends once per restock, not on every product edit',
     ],
   },
   {
-    tag: 'Automation 05',
+    tag: 'Pro',
     name: 'Price drop',
-    trigger: 'Fires when: the price falls below what the shopper saw',
-    body: 'The price a shopper saw is stored alongside the product they viewed. Cut it, and the alert goes to exactly the people for whom the price was the reason they hesitated.',
+    n: { title: 'The price just dropped', body: 'Something you were watching is now cheaper.', time: 'on price cut' },
+    trigger: 'Fires when: the price falls at least 5% below what the shopper saw',
+    body: 'The price a shopper saw is stored alongside the product they viewed. Cut it by 5% or more, and the alert goes to exactly the people for whom the price was the reason they hesitated.',
     points: [
       'Compares against the price at the time of viewing',
-      'Message can carry the old and new price',
-      'No alert when a price goes up',
+      'Message can name the product and its new price',
+      'No alert when a price goes up, or for a cut under 5%',
     ],
   },
 ];
 ---
 
 <Base
-  title="Automations — Qpushly for Shopify"
-  description="The five Qpushly automations: welcome, abandoned cart recovery, browse abandonment, back in stock and price drop — each with up to three timed reminders."
+  title="Automations — QPushly for Shopify"
+  description="The five QPushly automations: welcome, abandoned cart recovery, browse abandonment, back in stock and price drop — each with up to three timed reminders."
 >
   <section class="phero">
     <div class="wrap">
@@ -78,6 +86,8 @@ const automations = [
         Each one listens to a real event in your store — a subscribe, a stalled
         cart, a restock, a price cut — and sends up to three messages on delays
         you choose. Every automation has its own on/off switch and its own numbers.
+        New installs start with ready-written reminders for all five, switched
+        off until you turn them on.
       </p>
       <div class="hero-cta mt-8">
         <a href={APP_STORE_URL} class="btn btn-accent btn-lg">Install free</a>
@@ -104,12 +114,8 @@ const automations = [
             <div>
               <div class="rounded-xl2 border p-6" style="border-color:var(--line); background:var(--grad-tint)">
                 <p class="kicker" style="color:var(--blue-ink)">{a.trigger}</p>
-                <div class="anim-flow mt-5">
-                  <span class="fl-line"></span>
-                  <div class="fl-step s1"><span class="fd"><i></i></span><span class="fl-lbl">Event detected</span></div>
-                  <div class="fl-step s2"><span class="fd"><i></i></span><span class="fl-lbl">Delay you set</span></div>
-                  <div class="fl-step s3"><span class="fd"><i></i></span><span class="fl-lbl">Notification sent</span></div>
-                </div>
+                <div class="mt-5"><NotifCard {...a.n} store="Your store" /></div>
+                <p class="v2-note mt-3">Starter copy that ships with the app — edit it before switching on.</p>
               </div>
             </div>
           </article>
@@ -166,7 +172,7 @@ const automations = [
       <div class="cta rv">
         <span class="eyebrow"><span class="dot"></span>Get started</span>
         <h2>Start with <em>two</em> of them</h2>
-        <p>Welcome and abandoned cart cover most of the value. Add the rest once you can see what they earn.</p>
+        <p>Welcome is on the Free plan; abandoned cart and the other three are on Pro, with a 7-day trial. Add the rest once you can see what they earn.</p>
         <a href={APP_STORE_URL} class="btn btn-accent btn-lg">Install free</a>
       </div>
     </div>

@@ -1,0 +1,21 @@
+/* prototype-only stand-in for global.css (shared tokens + header/btn/faq) */
+@font-face{font-family:'Be Vietnam Pro';font-weight:400;font-display:swap;src:url(fonts/bevietnampro-400-latin.woff2) format('woff2')}
+@font-face{font-family:'Be Vietnam Pro';font-weight:500;font-display:swap;src:url(fonts/bevietnampro-500-latin.woff2) format('woff2')}
+@font-face{font-family:'Be Vietnam Pro';font-weight:600;font-display:swap;src:url(fonts/bevietnampro-600-latin.woff2) format('woff2')}
+@font-face{font-family:'Be Vietnam Pro';font-weight:700;font-display:swap;src:url(fonts/bevietnampro-700-latin.woff2) format('woff2')}
+@font-face{font-family:'JetBrains Mono';font-weight:100 800;font-display:swap;src:url(fonts/jetbrainsmono-vf-latin.woff2) format('woff2')}
+:root{--bg:#F4F1EA;--bg-2:#ECE8DF;--ink:#1E1E1A;--ink-2:#5E5C55;--muted:#6E6B63;--faint:#9A968C;--line:#E2DDD1;--line-2:#D2CCBE;--blue:#2F6FED;--blue-ink:#1E4FBF;--blue-soft:#DCE7FD;--blue-line:#B9CEF8;--btn:#2F6FED;--btn-h:#1E4FBF;--mono:'JetBrains Mono',ui-monospace,monospace;--w-bar:#f7f8f9;--w-line:#e9eaed;--w-line-2:#eef0f2;--w-mut:#7a818b;--d-bg:#1E1E1A;--d-text:#F4F1EA;--shadow-float:0 1px 1px rgba(30,30,26,.04),0 8px 24px -12px rgba(30,30,26,.18),0 40px 80px -36px rgba(30,30,26,.22);--ease:cubic-bezier(.22,.61,.21,1)}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Be Vietnam Pro',system-ui,sans-serif;-webkit-font-smoothing:antialiased;letter-spacing:-.011em}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1200px;margin:0 auto;padding:0 20px}@media(min-width:768px){.wrap{padding:0 32px}}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:600;font-size:.875rem;padding:10px 18px;border-radius:10px;border:1px solid transparent;transition:all .2s;cursor:pointer}
+.btn-lg{padding:13px 22px;font-size:.9375rem}
+.btn-accent{color:#fff;background:var(--btn);box-shadow:0 1px 2px rgba(30,30,26,.12),0 8px 20px -10px rgba(47,111,237,.55)}
+.btn-line{color:var(--ink);background:rgba(255,255,255,.9);border-color:var(--line-2)}
+header.site{position:sticky;top:0;z-index:50;background:rgba(244,241,234,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{display:flex;align-items:center}.logo-svg{display:block;height:32px;width:auto}
+.nav-links{display:flex;gap:28px;font-size:.875rem;font-weight:500;color:var(--ink-2)}@media(max-width:1023px){.nav-links{display:none}}
+.faq{max-width:780px}.faq details{border-bottom:1px solid var(--line)}.faq summary{list-style:none;cursor:pointer;padding:20px 0;font-weight:600;font-size:1.0625rem;display:flex;justify-content:space-between}.faq summary::after{content:"+";color:var(--muted)}.faq .ans{margin:0 0 20px;color:var(--ink-2);line-height:1.6}
+footer.site{border-top:1px solid var(--line);padding:56px 0;color:var(--muted);font-size:.875rem}

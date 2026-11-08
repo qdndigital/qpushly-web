@@ -4,19 +4,25 @@
 @tailwind utilities;
 
 /* =====================================================================
-   Qpushly — "Polaris Pro": 50% Shopify Polaris · 30% Linear · 20% Apple.
-   Same system as the QSortby site; the accent is Qpushly blue (#2f6fed)
+   QPushly — "Polaris Pro": 50% Shopify Polaris · 30% Linear · 20% Apple.
+   Same system as the QSortby site; the accent is QPushly blue (#2f6fed)
    instead of emerald. White ground, light borders, minimal shadow, no
    decorative page gradients. Motion is quiet and quick.
    ===================================================================== */
 
 @layer base {
   :root {
-    --bg:#ffffff; --bg-2:#f6f7f8; --surface:#fff;
-    --ink:#101317; --ink-2:#41464d; --muted:#697079; --faint:#9aa0a8;
-    --line:#e6e7ea; --line-2:#d3d6da;
-    --blue:#2f6fed; --blue-ink:#1e4fbf; --blue-bright:#5b93ff; --blue-soft:#eaf0fe; --blue-line:#c9d9fb;
-    --btn:#111418; --btn-h:#2a2f37;
+    /* 2026-11 refresh: a white floor so the page reads bright; brand Paper
+       (#F4F1EA family) is kept as an accent band, and colour is spent where it
+       carries meaning — the hero light, the deep-blue revenue band, the CTA. */
+    --bg:#FFFFFF; --bg-2:#F6F7FA; --surface:#fff;
+    --paper:#F7F4EE; --paper-line:#ECE6D9;
+    --sky:#F2F6FF; --sky-line:#DCE7FD;
+    --deep:#1B3FA8;
+    --ink:#1E1E1A; --ink-2:#5E5C55; --muted:#6E6B63; --faint:#9A968C;
+    --line:#E7E9EF; --line-2:#D6DAE3;
+    --blue:#2F6FED; --blue-ink:#1E4FBF; --blue-bright:#4C8DFF; --blue-soft:#DCE7FD; --blue-line:#B9CEF8;
+    --btn:#2F6FED; --btn-h:#1E4FBF;
     --down:#c4392f;
     --mono:'JetBrains Mono', ui-monospace, monospace;
     /* light product-window surfaces (the hero mockup) */
@@ -24,14 +30,14 @@
     --w-line:#e9eaed; --w-line-2:#eef0f2;
     --w-text:#101317; --w-mut:#7a818b;
     /* dark surfaces — phone/desktop notification shade */
-    --d-bg:#15171c; --d-2:#1d2027; --d-line:#2c3038; --d-text:#e7eaee; --d-mut:#8d949e;
-    --tint:#f2f6fe; --tint-2:#e2ebfd;
-    --grad-tint:linear-gradient(180deg,#ffffff 0%,#f5f8fe 100%);
+    --d-bg:#1E1E1A; --d-2:#2A2A25; --d-line:#3A3933; --d-text:#F4F1EA; --d-mut:#A8A398;
+    --tint:#EEF3FD; --tint-2:#DCE7FD;
+    --grad-tint:linear-gradient(180deg,#ffffff 0%,#EEF3FD 100%);
     --shadow-float:0 1px 1px rgba(16,24,40,.04),0 8px 24px -12px rgba(16,24,40,.18),0 40px 80px -36px rgba(16,24,40,.22);
     --ease:cubic-bezier(.22,.61,.21,1);
   }
   html { scroll-behavior:smooth; }
-  body { @apply bg-bg text-ink font-sans antialiased; letter-spacing:-.011em; }
+  body { @apply text-ink font-sans antialiased; background-color:var(--bg); letter-spacing:-.011em; }
   @media (max-width:1023px){ body { padding-bottom:62px; } }
   a { @apply text-inherit no-underline; }
   svg { @apply block; }
@@ -42,11 +48,12 @@
 }
 
 @layer components {
+
   /* ---- layout ---- */
   .wrap { @apply mx-auto w-full max-w-wide px-5 md:px-8; }
   .narrow { @apply mx-auto w-full max-w-wrap px-5 md:px-8; }
   .sec { @apply py-16 md:py-24; }
-  .alt { background:var(--bg-2); border-block:1px solid var(--line); }
+  .alt { background:var(--sky); border-block:1px solid var(--sky-line); }
 
   /* ---- eyebrow / labels ---- */
   .eyebrow { @apply inline-flex items-center gap-2 font-mono text-label uppercase; color:var(--blue-ink); }
@@ -62,10 +69,10 @@
   .lead-c { @apply text-lg text-ink-2 leading-relaxed mx-auto text-center; max-width:58ch; }
 
   /* ---- buttons ---- */
-  .btn { @apply inline-flex items-center justify-center gap-2 font-semibold text-sm px-[1.1rem] py-2.5 rounded-full border transition-all duration-200 cursor-pointer; border-color:transparent; }
+  .btn { @apply inline-flex items-center justify-center gap-2 font-semibold text-sm px-[1.1rem] py-2.5 rounded-[10px] border transition-all duration-200 cursor-pointer; border-color:transparent; }
   .btn:active { transform:translateY(.5px); }
   .btn svg { @apply w-4 h-4 fill-none; stroke:currentColor; stroke-width:2; }
-  .btn-accent { @apply text-white; background:var(--btn); box-shadow:0 1px 2px rgba(16,24,40,.18),0 8px 20px -10px rgba(16,24,40,.4); }
+  .btn-accent { @apply text-white; background:var(--btn); box-shadow:0 1px 2px rgba(30,30,26,.12),0 8px 20px -10px rgba(47,111,237,.55); }
   .btn-accent:hover { background:var(--btn-h); transform:translateY(-1px); box-shadow:0 2px 4px rgba(16,24,40,.2),0 14px 28px -12px rgba(16,24,40,.5); }
   .btn-line { @apply text-ink; background:rgba(255,255,255,.9); border-color:var(--line-2); }
   .btn-line:hover { border-color:var(--ink); transform:translateY(-1px); @apply shadow-sm; }
@@ -74,10 +81,11 @@
   .btn:focus-visible { outline:2px solid var(--blue); outline-offset:2px; }
 
   /* ---- header / nav ---- */
-  header.site { @apply sticky top-0 z-50 transition-colors duration-200; background:rgba(255,255,255,.8); backdrop-filter:saturate(140%) blur(10px); border-bottom:1px solid transparent; }
+  header.site { @apply sticky top-0 z-50 transition-colors duration-200; background:rgba(255,255,255,.86); backdrop-filter:saturate(140%) blur(10px); border-bottom:1px solid transparent; }
   header.site.scrolled { border-bottom-color:var(--line); }
   .nav { @apply flex items-center justify-between h-16; }
-  .logo { @apply flex items-center gap-2.5 font-display font-bold text-lg text-ink; letter-spacing:-.02em; }
+  .logo { @apply flex items-center; }
+  .logo-svg { display:block; height:40px; width:auto; }
   .logomark { @apply w-7 h-7 shrink-0; }
   .nav-links { @apply hidden lg:flex gap-7 text-sm font-medium text-ink-2; }
   .nav-links a { @apply transition-colors; }
@@ -183,9 +191,9 @@
   .fbar { @apply flex flex-wrap justify-between gap-3 mt-14 pt-6 border-t font-mono text-xs text-muted; border-color:var(--line); }
 
   /* ---- page hero (subpages) ---- */
-  .phero { @apply relative pt-16 pb-12 md:pt-24 md:pb-16 overflow-hidden; }
-  .phero::before { content:""; @apply absolute inset-x-0 top-0 pointer-events-none; height:340px; z-index:-2;
-    background:radial-gradient(50% 60% at 22% -10%, rgba(47,111,237,.10), transparent 70%), radial-gradient(40% 50% at 88% 0%, rgba(91,147,255,.08), transparent 72%); }
+  .phero { @apply relative pt-16 pb-12 md:pt-24 md:pb-16 overflow-hidden; isolation:isolate; }
+  .phero::before { content:""; @apply absolute inset-0 pointer-events-none; z-index:-2;
+    background:radial-gradient(40% 70% at 85% 10%, rgba(76,141,255,.22), transparent 70%), radial-gradient(28% 50% at 100% 100%, rgba(255,184,107,.14), transparent 70%), linear-gradient(180deg,#EEF3FF 0%,#FFFFFF 100%); }
   .phero::after { content:""; @apply absolute inset-x-0 top-0 pointer-events-none; height:300px; z-index:-2; opacity:.45;
     background-image:radial-gradient(rgba(16,24,40,.06) 1px, transparent 1px); background-size:22px 22px;
     -webkit-mask-image:linear-gradient(180deg,#000,transparent 85%); mask-image:linear-gradient(180deg,#000,transparent 85%); }
@@ -288,6 +296,8 @@
   .stickycta { @apply lg:hidden fixed inset-x-0 bottom-0 z-40 flex items-center gap-3 px-4 py-3; background:rgba(255,255,255,.94); backdrop-filter:blur(10px); border-top:1px solid var(--line); }
   .stickycta .lbl { @apply font-mono text-label uppercase text-muted flex-1 min-w-0 truncate; }
   .stickycta .btn { @apply shrink-0 whitespace-nowrap; }
+  /* room on the right for the QOne Desk chat launcher (bottom-right, ~48px) */
+  .stickycta { padding-right:80px; }
 
   /* ---- reveal ---- */
   .rv { opacity:0; transform:translateY(12px); transition:opacity .5s var(--ease), transform .5s var(--ease); }
@@ -300,7 +310,7 @@
 
 /* =====================================================================
    NOTIFICATION SHADE — the hero. A dark OS notification stack where
-   pushes arrive one after another, each one a real Qpushly automation.
+   pushes arrive one after another, each one a real QPushly automation.
    Driven by public/assets/app.js (#js-shade).
    ===================================================================== */
 .nstage { position:relative; width:100%; }
@@ -366,7 +376,7 @@
 @media (max-width:560px){ .sh-body { min-height:340px; } .sh-foot { grid-template-columns:1fr 1fr; } .sh-foot .sh-stat:last-child { display:none; } }
 
 /* =====================================================================
-   ADMIN SHOT — a light Qpushly admin window, used on /how-it-works and
+   ADMIN SHOT — a light QPushly admin window, used on /how-it-works and
    in the "inside the app" split. Pure CSS, no screenshot.
    ===================================================================== */
 .appshot { position:relative; background:var(--w-bg); border:1px solid var(--w-line); border-radius:18px; box-shadow:var(--shadow-float); overflow:hidden; color:var(--w-text); }

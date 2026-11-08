@@ -2,49 +2,57 @@
 import Base from '../layouts/Base.astro';
 import { APP_STORE_URL } from '../consts';
 
-// Everything on this page is a surface Qpushly genuinely uses today. Anything
+// Everything on this page is a surface QPushly genuinely uses today. Anything
 // aspirational is in the clearly-labelled "Not yet" section — a listing or site
 // that implies an integration the app doesn't have is a review problem.
 const native = [
   {
-    name: 'Theme app embed',
-    sub: 'Online Store',
-    body: 'Qpushly ships as an app embed, so it turns on from the theme editor and off again the same way. No Liquid to paste, nothing left behind in your theme when you uninstall.',
+    name: 'Theme editor',
+    sub: 'App embed',
+    icon: '<rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18M8 21h8"/>',
+    body: 'Switch QPushly on in Online Store → Themes → Customize, and off the same way. No code to paste into your theme, and nothing left behind if you uninstall.',
   },
   {
-    name: 'App proxy',
-    sub: 'Storefront requests',
-    body: 'Storefront requests travel through Shopify\'s app proxy, which signs them. Qpushly rejects anything unsigned, so nobody can push fake subscribers or fake metrics into your store.',
+    name: 'Product updates',
+    sub: 'Restocks and price changes',
+    icon: '<path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="m3 8 9 5 9-5M12 13v8"/>',
+    body: 'When Shopify reports a restock or a price cut, the shoppers who were waiting hear about it within a minute. A bulk edit of hundreds of products is handled calmly, not all at once.',
   },
   {
-    name: 'Product webhooks',
-    sub: 'products/update',
-    body: 'Restocks and price changes come from Shopify itself rather than from polling — which is what makes back-in-stock and price-drop alerts land in minutes.',
-  },
-  {
-    name: 'Order webhooks',
-    sub: 'orders/create · orders/updated',
-    body: 'When an order arrives, Qpushly matches it against the notification that was clicked, so campaigns and automations get orders and revenue next to them.',
+    name: 'Orders',
+    sub: 'Revenue per send',
+    icon: '<path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18M16 10a4 4 0 0 1-8 0"/>',
+    body: 'Every order is matched to the notification that brought the shopper back — campaign, A/B version or reminder — including “Buy it now”, which skips the cart. Each order counts once, even after edits and refunds.',
   },
   {
     name: 'Shopify Files',
-    sub: 'Campaign images',
-    body: 'Campaign images and your notification logo upload into your own Shopify Files, served from Shopify\'s CDN. No third-party image host in the loop.',
+    sub: 'Images',
+    icon: '<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/>',
+    body: 'Campaign images and your notification logo upload to your own Shopify Files and load from Shopify’s CDN. No outside image host.',
   },
   {
-    name: 'Shopify Billing',
-    sub: 'Managed Pricing',
-    body: 'Plans are hosted by Shopify. The charge lands on your Shopify invoice and you manage it from Shopify\'s own plan page.',
+    name: 'Shopify billing',
+    sub: 'Your Shopify invoice',
+    icon: '<rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/>',
+    body: 'You approve the plan inside Shopify and it appears on your normal Shopify invoice. Upgrade, downgrade or cancel from the app. QPushly never sees a card.',
   },
   {
-    name: 'Cart attributes',
-    sub: 'Attribution',
-    body: 'A notification click writes a campaign tag onto the cart. That is the thread that ties a send to the order it produced.',
+    name: 'Secure storefront link',
+    sub: 'Signed by Shopify',
+    icon: '<rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>',
+    body: 'Your storefront talks to QPushly through a connection Shopify signs. Anything unsigned is rejected, so nobody can add fake subscribers or inflate your numbers.',
   },
   {
-    name: 'Web Push (VAPID)',
-    sub: 'Standards-based',
-    body: 'Delivery uses the open Web Push protocol with a signing keypair unique to your store — Chrome, Edge, Firefox, Opera and Safari, no vendor SDK.',
+    name: 'Open web push',
+    sub: 'Every major browser',
+    icon: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',
+    body: 'Notifications use the browser’s own push standard with a key unique to your store. No extra app for shoppers to install, no third-party push service in between.',
+  },
+  {
+    name: 'Shopify admin',
+    sub: 'Embedded app',
+    icon: '<path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z"/>',
+    body: 'Everything — campaigns, automations, subscribers, results — lives inside your Shopify admin, with the same look and navigation. Nothing separate to log into.',
   },
 ];
 
@@ -52,17 +60,18 @@ const check = '<path d="M20 6 9 17l-5-5"/>';
 ---
 
 <Base
-  title="Integrations — Qpushly for Shopify"
-  description="Qpushly is Shopify-native: theme app embed, signed app proxy, product and order webhooks, Shopify Files, Shopify Billing, and standards-based Web Push."
+  title="Integrations — QPushly for Shopify"
+  description="QPushly is built into Shopify: the theme editor, Shopify's product and order updates, Shopify Files and Shopify billing. Nothing to host, no code to paste."
 >
   <section class="phero">
     <div class="wrap">
       <p class="crumb"><a href="/">Home</a> / Integrations</p>
-      <h1>Shopify-native, not Shopify-adjacent</h1>
+      <h1>Built into Shopify. Nothing else to connect.</h1>
       <p>
-        Qpushly uses the platform's own surfaces — the theme editor, the signed
-        app proxy, Shopify's webhooks, Shopify's file storage and Shopify's
-        billing. Less to configure, and less that breaks when your theme changes.
+        QPushly runs on Shopify's own building blocks — the theme editor,
+        Shopify's product and order updates, your Shopify Files and Shopify
+        billing. Nothing to host, no code to paste, and less that can break when
+        your theme changes.
       </p>
     </div>
   </section>
@@ -73,7 +82,7 @@ const check = '<path d="M20 6 9 17l-5-5"/>';
         {native.map((n) => (
           <div class="card">
             <div class="ic">
-              <svg viewBox="0 0 24 24"><path d="M12 2 2 7l10 5 10-5z"/><path d="m2 17 10 5 10-5M2 12l10 5 10-5"/></svg>
+              <svg viewBox="0 0 24 24" set:html={n.icon} />
             </div>
             <h3>{n.name}</h3>
             <p class="kicker mb-2">{n.sub}</p>
@@ -111,7 +120,7 @@ const check = '<path d="M20 6 9 17l-5-5"/>';
       </div>
       <p class="lead-c mt-10 rv">
         On iPhone and iPad, Apple only allows web push once the shopper has added
-        your store to their home screen. Qpushly records each subscriber's browser,
+        your store to their home screen. QPushly records each subscriber's browser,
         OS and device, so you can see your own mix rather than guessing from
         market-share charts.
       </p>
@@ -123,14 +132,14 @@ const check = '<path d="M20 6 9 17l-5-5"/>';
     <div class="wrap">
       <div class="shead rv">
         <span class="eyebrow"><span class="dot"></span>Not yet</span>
-        <h2>Things Qpushly does not do today</h2>
+        <h2>Things QPushly does not do today</h2>
         <p>Listed here so you do not have to find out after installing.</p>
       </div>
       <div class="ps mt-10 rv">
         <div class="ps-col bad">
           <p class="tag">No integration yet</p>
           <ul>
-            <li><span class="mk"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></span>Email or SMS sending — Qpushly is push only</li>
+            <li><span class="mk"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></span>Email or SMS sending — QPushly is push only</li>
             <li><span class="mk"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></span>Klaviyo, Mailchimp or other ESP sync</li>
             <li><span class="mk"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></span>Shopify Flow triggers and actions</li>
             <li><span class="mk"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></span>A public API or outgoing webhooks</li>
@@ -140,7 +149,7 @@ const check = '<path d="M20 6 9 17l-5-5"/>';
           <p class="tag">What you can do instead</p>
           <ul>
             <li><span class="mk"><svg viewBox="0 0 24 24" set:html={check} /></span>Export your subscriber list to CSV at any time</li>
-            <li><span class="mk"><svg viewBox="0 0 24 24" set:html={check} /></span>Import a CSV from another push provider when you switch</li>
+            <li><span class="mk"><svg viewBox="0 0 24 24" set:html={check} /></span>Import a subscriber CSV on Pro (endpoint and keys per row)</li>
             <li><span class="mk"><svg viewBox="0 0 24 24" set:html={check} /></span>Point every notification at any URL, including a landing page your ESP tracks</li>
             <li><span class="mk"><svg viewBox="0 0 24 24" set:html={check} /></span>Read attributed revenue per campaign inside the app</li>
           </ul>

@@ -8,12 +8,12 @@ import { SUPPORT_EMAIL } from '../consts';
 // publish the app, and requires the policy to actually describe the data the app
 // collects. Have a lawyer review this before submitting, and update it whenever
 // the schema changes.
-const updated = '5 August 2026';
+const updated = '7 November 2026';
 ---
 
 <Base
-  title="Privacy Policy — Qpushly"
-  description="What Qpushly collects, why, how long it is kept, and how it is deleted."
+  title="Privacy Policy — QPushly"
+  description="What QPushly collects, why, how long it is kept, and how it is deleted."
 >
   <section class="phero">
     <div class="wrap">
@@ -26,12 +26,12 @@ const updated = '5 August 2026';
   <section class="sec pt-4">
     <div class="wrap prose">
       <p>
-        Qpushly ("we", "the app") is a Shopify application that sends web push
+        QPushly ("we", "the app") is a Shopify application that sends web push
         notifications on behalf of the merchant who installs it. This policy
         explains what the app collects, why, and when it is deleted.
       </p>
       <p>
-        Two relationships matter here. The <b>merchant</b> installs Qpushly and
+        Two relationships matter here. The <b>merchant</b> installs QPushly and
         decides what messages to send; in data-protection terms the merchant is the
         controller of their shoppers' data and we act as their processor. If you are
         a <b>shopper</b> who subscribed to notifications from a store, the store you
@@ -49,14 +49,16 @@ const updated = '5 August 2026';
 
       <h2>What we collect about shoppers</h2>
       <p>
-        Only for shoppers who have <b>explicitly allowed notifications</b> in their
-        browser. Visitors who decline, or who never see the prompt, are not recorded.
+        Everything below is held only for shoppers who have <b>explicitly
+        allowed notifications</b> in their browser. Nothing is recorded about a
+        visitor who has not subscribed.
       </p>
       <ul>
         <li><b>Push subscription</b> — the endpoint URL issued by the shopper's browser vendor and the two cryptographic keys needed to encrypt a message to it. This is the address we send to; it identifies a browser installation, not a person.</li>
         <li><b>Device and locale</b> — browser, operating system, device type, user agent, language and timezone. These let the merchant see the makeup of their list and let us stop sending to browsers that no longer support delivery.</li>
-        <li><b>Contact details, where the store provides them</b> — email address and phone number, and city and country. These are populated from the merchant's own Shopify order data, not collected from the shopper by us.</li>
-        <li><b>Cart activity</b> — a snapshot of cart contents, value and currency, so an abandoned-cart reminder can reference what was in the cart.</li>
+        <li><b>Contact details, where the store provides them</b> — name, email address, phone number, city and country. These are copied from an order the subscriber places after clicking a notification, not collected from the shopper by us.</li>
+        <li><b>Cart activity</b> — a snapshot of cart contents, value, currency and Shopify's cart token, so an abandoned-cart reminder can reference what was in the cart. It is sent only for subscribers, and the cart is closed — with any reminders still queued for it cancelled — as soon as the shopper places an order. Merchants can switch cart tracking off in the theme editor.</li>
+        <li><b>Checkout intent</b> — when a subscriber presses “Buy it now”, which notification (if any) brought them and which product they were buying, so the resulting order can be credited. Kept for 30 minutes, then deleted.</li>
         <li><b>Product activity</b> — which products and variants a subscriber viewed, whether they were in stock, and the price at the time, so back-in-stock and price-drop alerts can be sent to the right people.</li>
         <li><b>Notification activity</b> — which notifications were delivered, clicked and converted.</li>
         <li><b>Attributed orders</b> — when a notification click leads to an order, we record that order: its id, total, currency, the customer's email and first name, and for each line item the title, quantity, price and product/variant id. Only orders we can attribute to a notification are recorded — we do not keep a copy of your other orders.</li>
@@ -68,12 +70,12 @@ const updated = '5 August 2026';
         <li>We do not sell, rent or share shopper data with advertisers or data brokers.</li>
         <li>We do not use one merchant's data to serve another merchant. Every record is scoped to the shop it belongs to.</li>
         <li>We do not load fonts, scripts or images from third-party origins onto your storefront.</li>
-        <li>We do not track visitors who have not subscribed to notifications.</li>
+        <li>We do not fingerprint visitors or follow them across sites. Nothing is recorded about a visitor who has not subscribed.</li>
       </ul>
 
       <h2>Legal basis</h2>
       <p>
-        For shoppers, the basis is <b>consent</b> — a browser push subscription
+        For subscribers, the basis is <b>consent</b> — a browser push subscription
         cannot exist without the shopper actively allowing notifications, and the
         subscription can be revoked at any time from the browser's own site
         settings. For merchant account data, the basis is <b>performance of a
@@ -91,7 +93,7 @@ const updated = '5 August 2026';
       <h2>Retention and deletion</h2>
       <ul>
         <li><b>On uninstall</b> — the access tokens for your store are deleted immediately, so no credentials for your store remain usable.</li>
-        <li><b>On shop redaction</b> — Shopify sends a shop-redaction request after an uninstall. On receipt we delete every record belonging to your store: subscribers, campaigns, automations, notification logs, tracked products, carts, attributed orders, settings and sessions.</li>
+        <li><b>On shop redaction</b> — Shopify sends a shop-redaction request after an uninstall. On receipt we delete every record belonging to your store: subscribers, campaigns, automations, notification logs, tracked products, carts, checkout intents, queued product updates, attributed orders, settings, the store's push signing keypair and sessions.</li>
         <li><b>On customer redaction</b> — when Shopify sends a customer-redaction request, we delete that customer's subscriber record, cart history and attributed order rows, matched on the email address and phone number Shopify supplies.</li>
         <li><b>On customer data request</b> — when Shopify sends a data-access request on behalf of a customer, we provide the merchant with the records we hold for that person so the merchant can respond.</li>
       </ul>

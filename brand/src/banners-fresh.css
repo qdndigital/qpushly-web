@@ -1,0 +1,16 @@
+/* 2026-11 refresh: white floor with blue morning light, cool neutral lines —
+   same system as qpushly.com after the background change. */
+:root{--bg:#FFFFFF;--bg-2:#F6F7FA;--line:#E7E9EF;--line-2:#D6DAE3}
+.bn:not(.dark){background:
+  radial-gradient(38% 62% at 80% 42%, rgba(76,141,255,.24), transparent 70%),
+  radial-gradient(28% 40% at 100% 100%, rgba(255,184,107,.16), transparent 70%),
+  linear-gradient(180deg,#EEF3FF 0%,#FFFFFF 82%)}
+.scr{background:#fff}
+/* dark YouTube thumbnail: ink ground lit by the brand blue behind the phone */
+.bn.ytd{background:
+  radial-gradient(40% 70% at 80% 45%, rgba(76,141,255,.42), transparent 70%),
+  radial-gradient(45% 60% at 0% 100%, rgba(47,111,237,.20), transparent 70%),
+  linear-gradient(160deg,#141821 0%,#0E1118 100%)}
+.bn.ytd .bm{color:rgba(255,255,255,.72)}
+.bn.ytd .bm span::before{background:#4C8DFF}
+.bn.ytd .ph{background:#232834;box-shadow:0 0 0 1px rgba(255,255,255,.16),0 0 90px 6px rgba(76,141,255,.32),0 40px 90px -30px rgba(0,0,0,.8)}

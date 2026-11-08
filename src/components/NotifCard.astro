@@ -1,0 +1,28 @@
+---
+/**
+ * One web push notification as a shopper sees it. Used by the home hero (dark,
+ * on the phone lock screen), the shopper-journey list and the closing CTA.
+ * The store is fictional ("Northline Supply"); the copy mirrors what the app's
+ * starter reminders actually send. Styles live in src/styles/v2.css (.ncard).
+ */
+interface Props {
+  title: string;
+  body: string;
+  time: string;
+  store?: string;
+  buttons?: string[];
+  dark?: boolean;
+}
+const { title, body, time, store = 'Northline Supply', buttons = [], dark = false } = Astro.props;
+---
+<div class={`ncard${dark ? ' dk' : ''}`}>
+  <span class="ic">{store.charAt(0)}</span>
+  <div>
+    <p class="meta"><span>{store}</span><span>{time}</span></p>
+    <p class="t">{title}</p>
+    <p class="b">{body}</p>
+    {buttons.length > 0 && (
+      <div class="acts">{buttons.map((b, i) => <span class={i === 0 ? 'p' : ''}>{b}</span>)}</div>
+    )}
+  </div>
+</div>

@@ -74,4 +74,39 @@
      for the first second of every visit, and for every crawler, screenshot and
      link-preview snapshot. The shade's own fade-and-rise (`.shade.in`) plus the
      floating chips carry enough motion; the content stays put. */
+
+  /* ---- 3c. home hero (2026-11) ----------------------------------------
+     One moment per visit: the invite's Allow is pressed and the pushes settle
+     onto the phone. CSS animates transform only (src/styles/v2.css), so the
+     scene is complete before and without this class. */
+  var hx = document.getElementById('hx');
+  if (hx && !reduced) hx.classList.add('play');
+
+  /* ---- 4. intro video (YouTube, click to load) ------------------------
+     Nothing is fetched from YouTube until a visitor asks for the video:
+     the poster or a chapter swaps in a youtube-nocookie player that starts
+     playing at that point. A later chapter click reloads it at the new time. */
+  var yt = document.getElementById('yt-intro');
+  if (yt) {
+    var ytId = yt.getAttribute('data-yt-id');
+    var playAt = function (start) {
+      var src = 'https://www.youtube-nocookie.com/embed/' + ytId +
+        '?autoplay=1&rel=0&modestbranding=1&playsinline=1' + (start ? '&start=' + start : '');
+      var f = document.createElement('iframe');
+      f.src = src;
+      f.title = 'QPushly intro';
+      f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+      f.allowFullscreen = true;
+      yt.innerHTML = '';
+      yt.appendChild(f);
+    };
+    var poster = yt.querySelector('.watch-poster');
+    if (poster) poster.addEventListener('click', function (e) { e.preventDefault(); playAt(0); });
+    Array.prototype.forEach.call(document.querySelectorAll('[data-yt-start]'), function (b) {
+      b.addEventListener('click', function () {
+        playAt(Number(b.getAttribute('data-yt-start')) || 0);
+        if (window.innerWidth < 900) yt.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center' });
+      });
+    });
+  }
 })();

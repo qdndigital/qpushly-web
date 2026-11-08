@@ -1,7 +1,11 @@
 /**
  * Pricing — single source of truth for the marketing site.
  *
- * ⚠️  THE FEATURE SPLIT IS REAL AND ENFORCED. THE PRICES ARE STILL PLACEHOLDERS.
+ * Confirmed 2026-11-07 against the app: ONE paid plan, defined in code with the
+ * Shopify Billing API (`billing` in app/shopify.server.ts) — Pro, $19 USD every
+ * 30 days, 7-day trial — plus the Free tier. There is NO annual plan in the app;
+ * do not advertise one here or on the listing until `BillingInterval.Annual`
+ * exists in that `billing` block.
  *
  * **Feature split** — mirrors `app/lib/plan-features.ts` in the app repo, which
  * is what the app actually enforces. Do not change one without the other; a
@@ -13,20 +17,15 @@
  * sent, so a downgrade never stops sends already set up. Revenue attribution is
  * deliberately NOT gated — see the comment in plan-features.ts for why.
  *
- * **Prices** — still unknown to this repo. Qpushly bills through Shopify
- * **Managed Pricing**, so the tiers live in the Partner Dashboard;
- * `app/utils/billing.server.ts` only reads the active subscription and links to
- * Shopify's hosted pricing page. Before launch:
- *   1. Read the real plan name, price and trial from the Partner Dashboard.
- *   2. Update the `price` fields below and flip PRICING_CONFIRMED to true.
- *   3. Mirror them in the listing copy (app repo → docs/APP_STORE_LISTING.md)
- *      and the user guide.
+ * **Prices** — the paid plan is defined in the app's code (Billing API, see
+ * top of file). Change a price there first, then here, then in the listing copy
+ * (app repo → docs/listing-v2/LISTING_COPY.md) and the user guide.
  */
 
 /** Set to true once the numbers below have been reconciled with the Partner
  *  Dashboard. While false, /pricing renders a "confirm on the App Store" note
  *  instead of presenting these figures as final. */
-export const PRICING_CONFIRMED = false;
+export const PRICING_CONFIRMED = true;
 
 /** Shopify's payment trial on the paid plan, before the first charge. */
 export const PAYMENT_TRIAL_DAYS = 7;
@@ -34,7 +33,7 @@ export const PAYMENT_TRIAL_DAYS = 7;
 export interface Plan {
   /** Plan name as shown to merchants — must match the Partner Dashboard exactly. */
   name: string;
-  /** Display price, USD/month. */
+  /** Display price, USD per 30-day billing cycle. */
   price: string;
   /** Who it's for — one line, sits under the price. */
   desc: string;
@@ -53,11 +52,11 @@ export const PLANS: Plan[] = [
     desc: 'Everything you need to start collecting subscribers.',
     features: [
       'One-tap storefront opt-in',
-      'Unlimited broadcast campaigns',
-      'Welcome notifications',
+      'Unlimited campaigns, sent now or scheduled',
+      'A/B split test on campaigns',
+      'Welcome notification (one message)',
       'Revenue attribution per send',
-      'Subscriber list with device segments',
-      'CSV export',
+      'Subscriber segments and CSV export',
     ],
   },
   {
@@ -69,8 +68,8 @@ export const PLANS: Plan[] = [
       'Abandoned cart recovery',
       'Browse abandonment',
       'Back-in-stock & price-drop alerts',
-      'Up to 3 reminders per automation',
-      'CSV import from another provider',
+      'Up to 3 reminders per automation, welcome included',
+      'CSV subscriber import',
     ],
     badge: 'Recommended',
     feat: true,
@@ -84,19 +83,21 @@ export const MATRIX: { label: string; cells: string[] }[] = [
   { label: 'Unlimited subscribers', cells: ['✓', '✓'] },
   { label: 'Broadcast campaigns (image + click URL)', cells: ['✓', '✓'] },
   { label: 'Scheduled sends', cells: ['✓', '✓'] },
+  { label: 'A/B split test (two versions per campaign)', cells: ['✓', '✓'] },
   { label: 'Subscriber segments (browser / OS / device)', cells: ['✓', '✓'] },
   { label: 'Impressions & clicks per campaign', cells: ['✓', '✓'] },
   // Not gated on purpose: attribution happens in the orders webhook, which has
   // no cheap way to know the plan, and withholding reporting a merchant already
   // earned is user-hostile. See app/lib/plan-features.ts.
   { label: 'Revenue attribution per send', cells: ['✓', '✓'] },
-  { label: 'Welcome notifications', cells: ['✓', '✓'] },
+  { label: 'Welcome notifications', cells: ['1 message', 'Up to 3'] },
   { label: 'Abandoned cart recovery', cells: ['—', '✓'] },
   { label: 'Browse abandonment', cells: ['—', '✓'] },
   { label: 'Back-in-stock alerts', cells: ['—', '✓'] },
   { label: 'Price-drop alerts', cells: ['—', '✓'] },
-  { label: 'Reminders per automation', cells: ['1', '3'] },
+  { label: 'Reminders per automation', cells: ['—', 'Up to 3'] },
   { label: 'CSV export', cells: ['✓', '✓'] },
-  { label: 'CSV import from another provider', cells: ['—', '✓'] },
-  { label: 'Support', cells: ['Guide', 'Email'] },
+  { label: 'CSV subscriber import', cells: ['—', '✓'] },
+  { label: 'Free trial', cells: ['Not needed', '7 days'] },
+  { label: 'Support', cells: ['Guide + email', 'Guide + email'] },
 ];

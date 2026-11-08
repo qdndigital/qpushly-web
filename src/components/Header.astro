@@ -1,21 +1,19 @@
 ---
 import Logo from './Logo.astro';
-import { NAV, APP_STORE_URL, DEMO_URL } from '../consts';
+import { NAV, APP_STORE_URL } from '../consts';
 const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
 ---
 <header class="site">
   <div class="wrap nav">
-    <a href="/" class="logo" aria-label="Qpushly home">
+    <a href="/" class="logo" aria-label="QPushly home">
       <Logo />
-      <span>Qpushly</span>
     </a>
     <nav class="nav-links" id="nav-links">
       {NAV.map(([href, label]) => <a href={href} class={path === href ? 'active' : ''}>{label}</a>)}
     </nav>
-    {/* Install is the primary action: Qpushly is self-serve with a $0 tier, so
-        leading with "Book a demo" would gate a funnel that needs no gate. */}
+    {/* One action. QPushly is self-serve with a $0 tier — there is nothing a
+        demo call would add that the one-minute video on / does not. */}
     <div class="nav-cta">
-      <a href={DEMO_URL} class="btn btn-line nav-secondary">Book a demo</a>
       <a href={APP_STORE_URL} class="btn btn-accent">Install free</a>
       <button class="menu-btn" aria-label="Open menu" aria-controls="nav-links" aria-expanded="false">
         <svg class="ic-open" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>

@@ -1,6 +1,6 @@
-# Qpushly — Marketing Website
+# QPushly — Marketing Website
 
-Public marketing site for the **Qpushly** Shopify app (web push notifications).
+Public marketing site for the **QPushly** Shopify app (web push notifications).
 Built with **Astro + Tailwind**, deploys as static HTML to **Netlify**, and uses
 **Netlify Forms** for the support contact form.
 
@@ -16,10 +16,19 @@ own `package.json`. Same structure, stack and design system as
 - Netlify Forms (the `support` form on `/support`)
 - One 3 kB client script (`public/assets/app.js`): sticky-header border, mobile nav, reveal-on-scroll
 
-## Design — "Polaris Pro · Ink + Blue"
+## Design — brand guidelines v1.0
+
+Source of truth: `qpushly/docs/brand/qpushly-brand-guidelines.html`. Paper `#F4F1EA`
+ground (60%), Ink `#1E1E1A` (30%), QPushly blue `#2F6FED` as the one accent (10%) —
+primary buttons are blue, 10px radius; headings Be Vietnam Pro 600; the logo is the
+official horizontal artwork in `Logo.astro`, never retyped; the tagline is
+“One tap, always reachable.” with a blue full stop. Support: hello@qdn.vn.
+Name in running text: **QPushly** (matches the App Store listing and QSortby's style).
+
+### Previous system — "Polaris Pro · Ink + Blue" (superseded where it conflicts)
 
 50% Shopify Polaris · 30% Linear · 20% Apple. White ground, **near-black primary**
-(`#111418` buttons/brand), with **Qpushly blue** (`#2f6fed`) reserved for accents,
+(`#111418` buttons/brand), with **QPushly blue** (`#2f6fed`) reserved for accents,
 links and live data. Be Vietnam Pro, light borders, minimal shadow, no decorative page
 gradients, quiet/quick motion.
 
@@ -33,7 +42,7 @@ brand symbol from the app's brand kit (`qpushly/public/brand/`), inlined in
 or the app family stops looking like a family.
 
 The hero centrepiece is `PushShade.astro`: a dark OS notification shade holding
-three real Qpushly automations (abandoned cart, back in stock, price drop) over a
+three real QPushly automations (abandoned cart, back in stock, price drop) over a
 soft blue glow, with an outcome strip beneath. `AppShot.astro` is a pure-CSS
 mockup of the embedded admin dashboard, used in the "inside the app" split and on
 `/how-it-works`. Neither is a screenshot — they stay sharp at any width and weigh
@@ -44,6 +53,16 @@ nothing.
 > it read nicely after a second, but it also meant the hero's centrepiece was an
 > empty dark panel for every first paint, crawler and link-preview snapshot. See
 > the comment in `public/assets/app.js`.
+
+### 2026-11 redesign
+
+Same family tokens (font, ink, blue, borders). New home-page sections live in
+`src/styles/v2.css` — plain CSS, so the static prototype that was reviewed and
+the Astro build share one file. `NotifCard.astro` is the one notification
+component used everywhere (hero, journey, automations page, CTA). Real admin
+screens are in `public/assets/screens/`. Banners for the listing, social and ads
+are in `brand/` (see `brand/README.md`). The old `PushShade` / bento components
+are no longer on `/`; `AppShot` is still used by `/how-it-works`.
 
 ## Develop
 
@@ -65,7 +84,7 @@ npm run preview
 
 | Route | Purpose |
 |-------|---------|
-| `/` | Landing — hero w/ notification shade, trust bar, problem/solution, admin mockup, feature bento, setup steps, pricing teaser, FAQ, CTA |
+| `/` | Landing (2026-11 redesign) — hero: storefront invite + phone lock screen; one shopper's week (five notifications); real admin screens; one-minute video; attribution ledger; setup; pricing; FAQ; dark CTA |
 | `/automations` | The five automations, one row each, plus what they all share |
 | `/how-it-works` | End to end: opt-in → signals → scheduler → reporting, plus data handling |
 | `/integrations` | Shopify-native surfaces, browser support, and an honest "not yet" list |
@@ -77,49 +96,41 @@ npm run preview
 
 Adding a page? Add it to `public/sitemap.xml` too — the sitemap is hand-maintained.
 
-## ⚠️ Before publishing
+## Status (2026-11-07)
 
-### 1. Pricing is a placeholder — this one is a blocker
+The app is live on the App Store (published 2026-10-26) and the site now matches
+it. Reconciled against the app repo on `main`:
 
-`src/plans.ts` ships **invented numbers** and says so at the top of the file.
-Qpushly bills through Shopify **Managed Pricing**, which means the real plans live
-in the Partner Dashboard, not in any repo. Worse, the app currently **gates
-nothing** on plan — `hasPaidPlan` only drives an upsell banner (see P0-4 in the
-app repo's `docs/APP_STORE_SUBMISSION.md`), so the Free-vs-Pro split here is a
-*proposal*, not a description of shipped behaviour.
+- **Pricing confirmed** — Free + Pro $19 / 30 days, 7-day trial, defined with the
+  Billing API in the app's `app/shopify.server.ts`. `PRICING_CONFIRMED = true`,
+  so the caveat boxes are gone and the JSON-LD carries `offers`. There is **no
+  annual plan** in the app; the listing's $200/yr line must be removed too.
+- **"Book a demo" removed** everywhere — the cal.com link never existed. The
+  listing's demo store is password-protected, so it is not linked either. The
+  secondary CTA is now the one-minute intro video (`/#watch`), the same cut as
+  the listing video, on YouTube: https://youtu.be/2NguG8TusAs (QDN channel,
+  unlisted). It loads click-to-play from youtube-nocookie.com; the chapter list
+  starts it at each point. `public/assets/qpushly-intro.mp4` is no longer
+  referenced and can be deleted.
+- **Brand casing is `QPushly`**, matching the App Store listing and the app.
+- **OG image** — `public/assets/og.png` (1200×630), wired in `Base.astro`.
+- **Copy corrected to shipped behaviour**: soft invite before the browser prompt,
+  one-minute scheduler, A/B split test, "Buy it now" attribution, 5% price-drop
+  threshold, starter reminders on install. Removed claims the app does not back:
+  "recovering the cart stops the remaining reminders", "skips anyone who has
+  since added it to the cart", "the message can carry the old and new price",
+  and "push lists grow faster than email lists".
+- **Privacy Policy** now discloses that cart snapshots are sent for visitors who
+  have not subscribed (stored without identity) and the 30-minute checkout-intent
+  record. Still **not legally reviewed**.
 
-Before launch:
+Open:
 
-1. Read the real plan names, prices and trial from the Partner Dashboard.
-2. Make the app actually enforce whatever limits you advertise.
-3. Update `PLANS` + `MATRIX` in `src/plans.ts`, then flip `PRICING_CONFIRMED` to
-   `true` — that removes the caveat boxes on `/` and `/pricing` and re-enables the
-   `offers` block in the JSON-LD.
-4. Mirror the same numbers into the listing copy (`docs/APP_STORE_LISTING.md` in
-   the app repo) and the user guide.
+- `SUPPORT_EMAIL` is `hello@qdn.vn`; the app's `.env.example` and the listing
+  copy draft use `hello@qdn.vn`. Now hello@qdn.vn everywhere.
+- No testimonials yet — add attributable ones when they exist.
 
-A listing price that differs from what Shopify charges is an automatic rejection.
-
-### 2. Other placeholders
-
-- **`src/consts.ts`** → `APP_STORE_URL` points at `apps.shopify.com/qpushly`, which
-  404s until the app is published. `DEMO_URL` (`cal.com/qpushly/demo`) is not a real
-  booking link — every "Book a demo" button 404s until you replace it. Those are all
-  *secondary* CTAs (primary is install), so the funnel works meanwhile.
-- **Domain** → `astro.config.mjs` `site`, plus the `qpushly.com` references in
-  `public/sitemap.xml`, `public/robots.txt` and the JSON-LD in `src/layouts/Base.astro`.
-- **`SUPPORT_EMAIL`** → `hello@qdn.vn`; confirm the inbox exists and is monitored.
-- **Privacy Policy and Terms** are written to be *factually accurate* about what the
-  app stores (derived from `prisma/schema.prisma`) but they are **not legally
-  reviewed**. Have a lawyer read both before submitting, and re-read the privacy page
-  whenever the schema changes.
-- **No OG share image.** The Twitter card is `summary`. Add `public/assets/og.png`
-  (1200×630) and wire `og:image` in `Base.astro` if you want rich link previews.
-- **No testimonials anywhere on the site.** That is on purpose — there are no real
-  merchant quotes yet, and illustrative ones are worse than none. Add them when you
-  have attributable ones.
-
-### 3. Claims discipline
+## Claims discipline
 
 Every page here follows the same three rules as the App Store listing copy:
 **no statistics**, **pricing only on the pricing page**, **no outcome guarantees**.
