@@ -108,10 +108,9 @@ it. Reconciled against the app repo on `main`:
 - **"Book a demo" removed** everywhere — the cal.com link never existed. The
   listing's demo store is password-protected, so it is not linked either. The
   secondary CTA is now the one-minute intro video (`/#watch`), the same cut as
-  the listing video, on YouTube: https://youtu.be/2NguG8TusAs (QDN channel,
+  the listing video, on YouTube: https://youtu.be/FgelO6Ejc04 (QDN channel,
   unlisted). It loads click-to-play from youtube-nocookie.com; the chapter list
-  starts it at each point. `public/assets/qpushly-intro.mp4` is no longer
-  referenced and can be deleted.
+  starts it at each point.
 - **Brand casing is `QPushly`**, matching the App Store listing and the app.
 - **OG image** — `public/assets/og.png` (1200×630), wired in `Base.astro`.
 - **Copy corrected to shipped behaviour**: soft invite before the browser prompt,

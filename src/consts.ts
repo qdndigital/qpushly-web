@@ -12,7 +12,7 @@ export const APP_STORE_URL = 'https://apps.shopify.com/qpushly';
 
 // One-minute product intro (same cut as the App Store listing video).
 /** The 1-minute intro, hosted on the QDN YouTube channel (unlisted). Same cut as the App Store listing. */
-export const INTRO_YOUTUBE_ID = '2NguG8TusAs';
+export const INTRO_YOUTUBE_ID = 'FgelO6Ejc04';
 export const INTRO_YOUTUBE_URL = `https://youtu.be/${INTRO_YOUTUBE_ID}`;
 export const INTRO_POSTER = '/assets/intro-poster.jpg';
 

@@ -51,11 +51,13 @@ def shot(id,title,body,img,extra=''):
     return bn(id,1600,900, brand(96,72,32)+col(96,200,540,title,60,body,22)+scr(img,700,150,1000)+extra)
 B.append(('listing/01-opt-in',bn('s1',1600,900,brand(96,72,32)+col(96,200,540,'One tap to subscribe.<br>Nothing to type.',60,"Your own invite shows first — your words, your timing, your position. The browser only asks once a shopper says yes.",22)+store(700,150,1000,820,bar=False)+invite(600,436,1.25)+phone(1300,300,0.95,2))))
 B.append(('listing/02-campaign',shot('s2','Write it, preview it, send or schedule.','Title, message, image, link and audience. Split-test two versions and see exactly what subscribers will see.','campaign',
-  f'<div style="position:absolute;left:470px;top:650px;width:400px">{card("Weekend Flash Sale — 20% off","Two days only. Pick up your favourites before Sunday midnight.","now",("Shop the sale",))}</div>')))
+  f'<div style="position:absolute;left:470px;top:650px;width:400px">{card("Weekend Flash Sale — 20% off","Two days only. Pick up your favorites before Sunday midnight.","now",("Shop the sale",))}</div>')))
 B.append(('listing/03-reminders',shot('s3','Three reminders, each on its own timer.','Five automations — welcome, abandoned cart, browse abandonment, back in stock and price drop. Each reminder has its own delay, copy, icon and buttons.','reminder',
   f'<div style="position:absolute;left:470px;top:650px;width:400px">{card("You left something behind","Your cart is still saved. Check out before it sells out.","1h after",("View cart",))}</div>')))
-B.append(('listing/04-subscribers',shot('s4',"Know who’s listening.",'Growth over 7 to 60 days, segments by browser, OS and device, and CSV import from your previous provider.','subscribers')))
-B.append(('listing/05-setup',shot('s5','Live in about two minutes.','A five-step checklist takes you from install to your first notification. Starter reminders are written for you, switched off until you turn them on.','setup')))
+B.append(('listing/04-subscribers',shot('s4',"Know who’s listening.",'Growth over 7 to 60 days, segments by browser, OS and device, and every subscriber in one list you can export.','subscribers')))
+B.append(('listing/05-setup',bn('s5',1600,900, brand(96,72,32)+col(96,200,540,'Live in about two minutes.',60,'A five-step checklist takes you from install to your first notification. Starter reminders are written for you, switched off until you turn them on.',22)
+  +'<div class="scr" style="left:700px;top:230px;width:1000px;height:404px"><img src="assets/screens/setup.jpg"></div>'
+  +f'<div style="position:absolute;left:760px;top:600px;width:430px">{card("Thanks for subscribing","You’ll be first to hear about new arrivals, restocks and price drops.","now",("Start shopping",))}</div>')))
 B.append(('social/og-1200x630',bn('og',1200,630,brand(72,56,28)+col(72,140,600,TAG,58,'Web push for Shopify. Bring shoppers back any time, even after they close the browser.',22,metas=['Campaigns','Five automations','Revenue per send'],ms=17)+store(640,110,520,620)+invite(670,420,0.95)+phone(900,60,0.92))))
 B.append(('social/facebook-cover-1640x624',bn('fb',1640,624,brand(180,70,32)+col(180,150,700,TAG,76,'Web push for Shopify stores.',26)+store(900,90,640,600)+invite(930,400)+phone(1250,40,0.95))))
 B.append(('social/linkedin-cover-1128x191',bn('li',1128,191,col(340,44,520,'One tap, always reachable<span class="dot">.</span>',32,'Web push for Shopify · campaigns · five automations',15)+f'<div style="position:absolute;left:1130px;top:46px;width:230px;zoom:.8">{card("Back in stock: Kiln Mug","Available again.","now")}</div>')))
@@ -67,7 +69,7 @@ B.append(('ads/ad-1200x628',bn('a3',1200,628,brand(64,52,28)+col(64,124,560,HEAD
 B.append(('ads/ad-1080x1920-story',bn('a4',1080,1920,brand(90,140,42)+col(90,250,900,HEAD,112,'One tap to subscribe — no email, no phone number.',36,'Install free on Shopify',30)+phone(215,820,2.1,3))))
 B.append(('listing/06-automations',bn('s6',1600,900, brand(96,72,32)
   +col(96,200,540,'Five automations, ready to switch on.',60,'Welcome, abandoned cart, browse abandonment, back in stock and price drop. Each comes written and paused until you turn it on, then reports its own clicks, orders and revenue.',22)
-  +'<div class="scr" style="left:700px;top:220px;width:1000px;height:462px"><img src="assets/screens/automations.jpg" style="margin-top:-222px"></div>'
+  +'<div class="scr" style="left:700px;top:150px;width:1000px"><img src="assets/screens/automations.jpg"></div>'
   +f'<div style="position:absolute;left:96px;top:640px;width:430px">{card("Back in stock: Kiln Mug, Slate","The colour you looked at is available again.","now",("Shop now",))}</div>')))
 B.append(('youtube/thumbnail-1280x720',bn('yt',1280,720,brand(72,64,30)
   +'<h1 style="position:absolute;left:72px;top:172px;width:700px;font-size:104px;line-height:1.0">Web push<br>for Shopify<br><span style="color:var(--blue)">in 60s.</span></h1>'

@@ -3,10 +3,10 @@
   "type": "module",
   "version": "1.0.0",
   "private": true,
-  "description": "Marketing site for Qpushly — the Shopify web push notification app.",
+  "description": "Marketing site for Qpushly \u2014 the Shopify web push notification app.",
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
+    "dev": "node init && astro dev",
+    "build": "node init && astro build",
     "preview": "astro preview"
   },
   "dependencies": {

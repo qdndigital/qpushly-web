@@ -6,8 +6,6 @@ dist/
 node_modules/
 
 # env / local
-.env
-.env.*
 .DS_Store
 
 # netlify
@@ -16,3 +14,4 @@ node_modules/
 
 # Local editor/tool config (preview launcher) — not project content.
 .claude/
+config.bat
